@@ -1,4 +1,4 @@
-import { BUSINESS, SERVICES, LOCATIONS, type ServiceInfo, type LocationInfo } from '@/data/business';
+import { BUSINESS, SERVICES, LOCATIONS, locationUrl, type ServiceInfo, type LocationInfo } from '@/data/business';
 import { SITE_URL } from '@/components/Seo';
 
 export function localBusinessSchema() {
@@ -122,7 +122,7 @@ export function placeSchema(location: LocationInfo) {
       name: location.city,
       addressRegion: location.state,
     },
-    url: `${SITE_URL}/${location.slug}`,
+    url: `${SITE_URL}${locationUrl(location.slug)}`,
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Electrical Services',

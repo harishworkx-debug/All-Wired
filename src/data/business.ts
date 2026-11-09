@@ -873,9 +873,16 @@ export function getService(slug: string): ServiceInfo | undefined {
 }
 
 export function getLocation(slug: string): LocationInfo | undefined {
-  return LOCATIONS.find((l) => l.slug === slug);
+  const cleanSlug = slug.replace(/^(electrician|electrition)-/, '');
+  return LOCATIONS.find((l) => l.slug === cleanSlug || l.slug === slug);
+}
+
+export function locationUrl(locationSlug: string): string {
+  const clean = locationSlug.replace(/^(electrician|electrition)-/, '');
+  return `/electrician-${clean}`;
 }
 
 export function serviceLocationUrl(serviceSlug: string, locationSlug: string): string {
-  return `/${serviceSlug}-${locationSlug}`;
+  const cleanLocation = locationSlug.replace(/^(electrician|electrition)-/, '');
+  return `/${serviceSlug}-${cleanLocation}`;
 }

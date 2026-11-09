@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ChevronRight, MapPin } from 'lucide-react';
-import { LOCATIONS } from '@/data/business';
+import { LOCATIONS, locationUrl } from '@/data/business';
 
 export default function ServiceAreaLinks({ highlight }: { highlight?: string }) {
-  const locations = highlight
-    ? LOCATIONS.filter((l) => l.slug !== highlight)
+  const cleanHighlight = highlight?.replace(/^(electrician|electrition)-/, '');
+  const locations = cleanHighlight
+    ? LOCATIONS.filter((l) => l.slug !== cleanHighlight)
     : LOCATIONS;
 
   return (
@@ -12,7 +13,7 @@ export default function ServiceAreaLinks({ highlight }: { highlight?: string }) 
       {locations.map((l) => (
         <Link
           key={l.slug}
-          to={`/${l.slug}`}
+          to={locationUrl(l.slug)}
           className="group flex items-center justify-between rounded-xl border border-navy-100 bg-white px-4 py-3.5 transition-all hover:border-electric-300 hover:shadow-md"
         >
           <span className="flex items-center gap-2.5">

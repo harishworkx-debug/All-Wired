@@ -5,7 +5,7 @@ import Reveal from '@/components/Reveal';
 import CallButton from '@/components/CallButton';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaSection from '@/components/CtaSection';
-import { BUSINESS } from '@/data/business';
+import { BUSINESS, LOCATIONS, locationUrl } from '@/data/business';
 import { localBusinessSchema, breadcrumbSchema } from '@/lib/schema';
 
 export default function AboutPage() {
@@ -149,14 +149,18 @@ export default function AboutPage() {
             </Reveal>
             <Reveal delay={120}>
               <div className="grid gap-3 sm:grid-cols-3">
-                {['American Fork', 'Lehi', 'Pleasant Grove', 'Highland', 'Orem', 'Provo'].map((city) => (
-                  <div
-                    key={city}
-                    className="flex items-center gap-2 rounded-xl border border-navy-700 bg-navy-800/50 px-4 py-3"
+                {LOCATIONS.slice(0, 6).map((l) => (
+                  <Link
+                    key={l.slug}
+                    to={locationUrl(l.slug)}
+                    className="group flex items-center justify-between gap-2 rounded-xl border border-navy-700 bg-navy-800/50 px-4 py-3 transition-all hover:border-amber-400/50 hover:bg-navy-800"
                   >
-                    <MapPin className="h-4 w-4 text-amber-400" aria-hidden="true" />
-                    <span className="text-sm font-medium text-gray-200">{city}</span>
-                  </div>
+                    <span className="flex items-center gap-2">
+                      <MapPin className="h-4 w-4 text-amber-400" aria-hidden="true" />
+                      <span className="text-sm font-medium text-gray-200 group-hover:text-white">{l.city}</span>
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-gray-500 transition-transform group-hover:translate-x-1 group-hover:text-amber-400" aria-hidden="true" />
+                  </Link>
                 ))}
               </div>
             </Reveal>

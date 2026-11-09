@@ -7,7 +7,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaSection from '@/components/CtaSection';
 import FaqList from '@/components/FaqList';
 import ServiceAreaLinks from '@/components/ServiceAreaLinks';
-import { BUSINESS, SERVICES, getLocation, LOCATIONS } from '@/data/business';
+import { BUSINESS, SERVICES, getLocation, LOCATIONS, locationUrl, serviceLocationUrl } from '@/data/business';
 import { placeSchema, breadcrumbSchema, localBusinessSchema } from '@/lib/schema';
 
 interface LocationPageProps {
@@ -16,19 +16,20 @@ interface LocationPageProps {
 
 export default function LocationPage({ locationSlug: propSlug }: LocationPageProps = {}) {
   const params = useParams();
-  const locationSlug = propSlug ?? params.locationSlug ?? params.slug;
-  const location = locationSlug ? getLocation(locationSlug) : undefined;
+  const rawSlug = propSlug ?? params.locationSlug ?? params.slug;
+  const location = rawSlug ? getLocation(rawSlug) : undefined;
 
   if (!location) return <Navigate to="/404" replace />;
 
   const isPrimary = location.slug === 'american-fork-ut';
+  const urlPath = locationUrl(location.slug);
   const jsonLd = [
     localBusinessSchema(),
     placeSchema(location),
     breadcrumbSchema([
       { name: 'Home', path: '/' },
       { name: 'Service Areas', path: '/service-areas' },
-      { name: location.city, path: `/${location.slug}` },
+      { name: location.city, path: urlPath },
     ]),
   ];
 
@@ -37,7 +38,7 @@ export default function LocationPage({ locationSlug: propSlug }: LocationPagePro
       <Seo
         title={location.metaTitle}
         description={location.metaDescription}
-        path={`/${location.slug}`}
+        path={urlPath}
         jsonLd={jsonLd}
       />
 

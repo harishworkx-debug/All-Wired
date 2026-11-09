@@ -33,6 +33,7 @@ export default function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms-and-conditions" element={<TermsPage />} />
             <Route path="/404" element={<NotFoundPage />} />
+            <Route path="/electrician/:slug" element={<DynamicRoutePage />} />
             <Route path=":slug" element={<DynamicRoutePage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

@@ -24,7 +24,7 @@ import Reveal from '@/components/Reveal';
 import CallButton from '@/components/CallButton';
 import FaqList from '@/components/FaqList';
 import CtaSection from '@/components/CtaSection';
-import { BUSINESS, SERVICES, LOCATIONS } from '@/data/business';
+import { BUSINESS, SERVICES, LOCATIONS, locationUrl } from '@/data/business';
 import { localBusinessSchema, organizationSchema, websiteSchema } from '@/lib/schema';
 
 const ICONS: Record<string, typeof Wrench> = {
@@ -193,7 +193,10 @@ export default function HomePage() {
               const Icon = ICONS[s.icon] ?? Wrench;
               return (
                 <Reveal key={s.slug} delay={i * 80}>
-                  <article className="card group flex h-full flex-col overflow-hidden">
+                  <Link
+                    to={`/services/${s.slug}`}
+                    className="card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1"
+                  >
                     <div className="relative h-44 overflow-hidden">
                       <img
                         src={s.image}
@@ -207,27 +210,20 @@ export default function HomePage() {
                       </span>
                     </div>
                     <div className="flex flex-1 flex-col p-6">
-                      <h3 className="font-display text-xl font-bold text-navy-900">{s.name}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-navy-600">{s.tagline}</p>
-                      <div className="mt-5 flex items-center justify-between gap-3 pt-1">
-                        <Link
-                          to={`/${s.slug}-american-fork-ut`}
-                          className="text-sm font-semibold text-electric-600 hover:text-electric-700"
-                        >
-                          {s.name} in American Fork →
-                        </Link>
-                      </div>
-                      <div className="mt-4 border-t border-navy-100 pt-4">
-                        <a
-                          href={BUSINESS.phoneHref}
-                          className="inline-flex items-center gap-2 text-sm font-semibold text-navy-900 hover:text-amber-500"
-                        >
-                          <Phone className="h-4 w-4" aria-hidden="true" />
-                          Call for this service
-                        </a>
+                      <h3 className="font-display text-xl font-bold text-navy-900 transition-colors group-hover:text-electric-600">
+                        {s.name}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-navy-600 flex-1">
+                        {s.tagline}
+                      </p>
+                      <div className="mt-5 flex items-center justify-between border-t border-navy-100 pt-4">
+                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric-600 group-hover:text-electric-700">
+                          View Service Details
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                        </span>
                       </div>
                     </div>
-                  </article>
+                  </Link>
                 </Reveal>
               );
             })}
@@ -323,7 +319,7 @@ export default function HomePage() {
               {LOCATIONS.map((l) => (
                 <Link
                   key={l.slug}
-                  to={`/${l.slug}`}
+                  to={locationUrl(l.slug)}
                   className="group flex items-center justify-between rounded-xl border border-navy-100 bg-white px-4 py-3.5 transition-all hover:border-electric-300 hover:shadow-md"
                 >
                   <span className="flex items-center gap-2.5">

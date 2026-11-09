@@ -72,7 +72,10 @@ export default function ServicesOverviewPage() {
               const Icon = ICONS[s.icon] ?? Wrench;
               return (
                 <Reveal key={s.slug} delay={i * 80}>
-                  <article className="card group flex h-full flex-col overflow-hidden">
+                  <Link
+                    to={`/services/${s.slug}`}
+                    className="card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1"
+                  >
                     <div className="relative h-48 overflow-hidden">
                       <img
                         src={s.image}
@@ -86,8 +89,10 @@ export default function ServicesOverviewPage() {
                       </span>
                     </div>
                     <div className="flex flex-1 flex-col p-6">
-                      <h2 className="font-display text-xl font-bold text-navy-900">{s.name}</h2>
-                      <p className="mt-2 text-sm leading-relaxed text-navy-600">{s.description}</p>
+                      <h2 className="font-display text-xl font-bold text-navy-900 transition-colors group-hover:text-electric-600">
+                        {s.name}
+                      </h2>
+                      <p className="mt-2 text-sm leading-relaxed text-navy-600 flex-1">{s.description}</p>
                       <div className="mt-4 flex flex-wrap gap-2">
                         {s.commonIssues.slice(0, 2).map((issue) => (
                           <span
@@ -99,29 +104,14 @@ export default function ServicesOverviewPage() {
                           </span>
                         ))}
                       </div>
-                      <div className="mt-5 flex flex-col gap-2 border-t border-navy-100 pt-4">
-                        <Link
-                          to={`/services/${s.slug}`}
-                          className="text-sm font-semibold text-electric-600 hover:text-electric-700"
-                        >
-                          Learn about {s.name} →
-                        </Link>
-                        <Link
-                          to={`/${s.slug}-american-fork-ut`}
-                          className="text-sm font-medium text-navy-700 hover:text-electric-600"
-                        >
-                          {s.name} in American Fork →
-                        </Link>
-                        <a
-                          href={BUSINESS.phoneHref}
-                          className="inline-flex items-center gap-2 text-sm font-semibold text-navy-900 hover:text-amber-500"
-                        >
-                          <Phone className="h-4 w-4" aria-hidden="true" />
-                          Call for this service
-                        </a>
+                      <div className="mt-5 flex items-center justify-between border-t border-navy-100 pt-4">
+                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric-600 group-hover:text-electric-700">
+                          View Service Details
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                        </span>
                       </div>
                     </div>
-                  </article>
+                  </Link>
                 </Reveal>
               );
             })}

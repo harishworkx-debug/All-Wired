@@ -11,7 +11,7 @@ import CtaSection from '@/components/CtaSection';
 import FaqList from '@/components/FaqList';
 import ServiceLinks from '@/components/ServiceLinks';
 import ServiceAreaLinks from '@/components/ServiceAreaLinks';
-import { BUSINESS, getService, getLocation, SERVICES, LOCATIONS } from '@/data/business';
+import { BUSINESS, getService, getLocation, SERVICES, LOCATIONS, locationUrl } from '@/data/business';
 import { serviceSchema, breadcrumbSchema } from '@/lib/schema';
 
 const ICONS: Record<string, typeof Wrench> = {
@@ -202,7 +202,7 @@ export default function ServiceLocationPage({
                     Serving {location.city}, {location.state} and nearby Utah County communities.
                   </p>
                   <Link
-                    to={`/${location.slug}`}
+                    to={locationUrl(location.slug)}
                     className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-electric-600 hover:text-electric-700"
                   >
                     All services in {location.city}

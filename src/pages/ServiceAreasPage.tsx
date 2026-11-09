@@ -5,7 +5,7 @@ import Reveal from '@/components/Reveal';
 import CallButton from '@/components/CallButton';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaSection from '@/components/CtaSection';
-import { BUSINESS, LOCATIONS, SERVICES } from '@/data/business';
+import { BUSINESS, LOCATIONS, SERVICES, locationUrl } from '@/data/business';
 import { localBusinessSchema, breadcrumbSchema } from '@/lib/schema';
 
 export default function ServiceAreasPage() {
@@ -69,32 +69,38 @@ export default function ServiceAreasPage() {
             {LOCATIONS.map((l, i) => (
               <Reveal key={l.slug} delay={i * 50}>
                 <Link
-                  to={`/${l.slug}`}
-                  className="group block h-full rounded-2xl border border-navy-100 bg-white p-6 shadow-sm transition-all hover:border-electric-300 hover:shadow-lg"
+                  to={locationUrl(l.slug)}
+                  className="group flex h-full flex-col justify-between rounded-2xl border border-navy-100 bg-white p-6 shadow-sm transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1"
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-900">
-                      <MapPin className="h-5 w-5 text-amber-400" aria-hidden="true" />
-                    </span>
-                    <ArrowRight className="h-5 w-5 text-navy-300 transition-transform group-hover:translate-x-1 group-hover:text-electric-600" aria-hidden="true" />
-                  </div>
-                  <h3 className="mt-4 font-display text-lg font-bold text-navy-900">
-                    {l.city}, {l.state}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-navy-600">
-                    {l.short === 'American Fork'
-                      ? 'Our primary service area and home base.'
-                      : `${l.county} — near American Fork.`}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    {SERVICES.slice(0, 3).map((s) => (
-                      <span
-                        key={s.slug}
-                        className="rounded-md bg-gray-50 px-2 py-0.5 text-xs text-navy-500"
-                      >
-                        {s.shortName}
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-900 transition-colors group-hover:bg-electric-600">
+                        <MapPin className="h-5 w-5 text-amber-400 transition-colors group-hover:text-white" aria-hidden="true" />
                       </span>
-                    ))}
+                      <ArrowRight className="h-5 w-5 text-navy-300 transition-transform group-hover:translate-x-1 group-hover:text-electric-600" aria-hidden="true" />
+                    </div>
+                    <h3 className="mt-4 font-display text-lg font-bold text-navy-900 transition-colors group-hover:text-electric-600">
+                      {l.city}, {l.state}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-navy-600">
+                      {l.short === 'American Fork'
+                        ? 'Our primary service area and home base.'
+                        : `${l.county} — near American Fork.`}
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {SERVICES.slice(0, 3).map((s) => (
+                        <span
+                          key={s.slug}
+                          className="rounded-md bg-gray-50 px-2 py-0.5 text-xs text-navy-500"
+                        >
+                          {s.shortName}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="mt-5 border-t border-navy-100 pt-3 flex items-center justify-between text-xs font-semibold text-electric-600 group-hover:text-electric-700">
+                    <span>View Electrician Services in {l.city}</span>
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </div>
                 </Link>
               </Reveal>

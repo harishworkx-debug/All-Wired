@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Zap, Phone, MapPin, Clock, ChevronRight } from 'lucide-react';
-import { BUSINESS, SERVICES, LOCATIONS } from '@/data/business';
+import { BUSINESS, SERVICES, LOCATIONS, locationUrl } from '@/data/business';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -64,7 +64,7 @@ export default function Footer() {
               {LOCATIONS.map((l) => (
                 <li key={l.slug}>
                   <Link
-                    to={`/${l.slug}`}
+                    to={locationUrl(l.slug)}
                     className="text-sm text-gray-400 transition-colors hover:text-amber-400"
                   >
                     {l.city}

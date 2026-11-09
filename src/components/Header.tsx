@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Zap, ChevronDown } from 'lucide-react';
-import { BUSINESS, SERVICES, LOCATIONS } from '@/data/business';
+import { BUSINESS, SERVICES, LOCATIONS, locationUrl } from '@/data/business';
 import CallButton from './CallButton';
 
 export default function Header() {
@@ -133,7 +133,7 @@ export default function Header() {
                       {LOCATIONS.map((l) => (
                         <Link
                           key={l.slug}
-                          to={`/${l.slug}`}
+                          to={locationUrl(l.slug)}
                           className="block rounded-lg px-3 py-2 text-sm text-navy-700 hover:bg-gray-50 hover:text-electric-600"
                         >
                           {l.city}
@@ -220,7 +220,7 @@ export default function Header() {
                 {LOCATIONS.map((l) => (
                   <Link
                     key={l.slug}
-                    to={`/${l.slug}`}
+                    to={locationUrl(l.slug)}
                     className="block rounded-lg px-3 py-2.5 text-sm text-navy-600 hover:bg-gray-50"
                   >
                     {l.city}
