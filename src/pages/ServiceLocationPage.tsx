@@ -196,19 +196,19 @@ export default function ServiceLocationPage({
                   <p className="mt-3 text-xs text-gray-400">Free estimates · Emergency service</p>
                 </div>
 
-                <div className="rounded-2xl border border-navy-100 bg-white p-5 shadow-sm">
-                  <p className="text-sm font-bold text-navy-900">Service Area</p>
+                <Link
+                  to={locationUrl(location.slug)}
+                  className="group block rounded-2xl border border-navy-100 bg-white p-5 shadow-sm transition-all hover:border-electric-300 hover:shadow-md cursor-pointer"
+                >
+                  <p className="text-sm font-bold text-navy-900 group-hover:text-electric-600 transition-colors">Service Area</p>
                   <p className="mt-1.5 text-sm text-navy-600">
                     Serving {location.city}, {location.state} and nearby Utah County communities.
                   </p>
-                  <Link
-                    to={locationUrl(location.slug)}
-                    className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-electric-600 hover:text-electric-700"
-                  >
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-electric-600 group-hover:text-electric-700">
                     All services in {location.city}
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
-                </div>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                  </span>
+                </Link>
               </div>
             </Reveal>
           </div>

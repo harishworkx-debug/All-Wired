@@ -5,6 +5,7 @@ import Reveal from '@/components/Reveal';
 import CallButton from '@/components/CallButton';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaSection from '@/components/CtaSection';
+import ServiceLinks from '@/components/ServiceLinks';
 import { BUSINESS, LOCATIONS, SERVICES, locationUrl } from '@/data/business';
 import { localBusinessSchema, breadcrumbSchema } from '@/lib/schema';
 
@@ -105,6 +106,25 @@ export default function ServiceAreasPage() {
                 </Link>
               </Reveal>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad border-t border-navy-100 bg-white">
+        <div className="container-x">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-wider text-electric-600">
+              Services
+            </p>
+            <h2 className="mt-3 font-display text-2xl font-bold text-navy-900 sm:text-3xl text-balance">
+              Electrical Services Offered in All Areas
+            </h2>
+            <p className="mt-4 text-base text-navy-600">
+              Click any service below to learn more about our process, options, and pricing.
+            </p>
+          </Reveal>
+          <div className="mt-10">
+            <ServiceLinks />
           </div>
         </div>
       </section>

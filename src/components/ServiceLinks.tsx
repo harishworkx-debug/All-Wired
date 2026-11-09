@@ -11,7 +11,7 @@ export default function ServiceLinks({ highlight }: { highlight?: string }) {
         <Link
           key={s.slug}
           to={`/services/${s.slug}`}
-          className="group flex items-center justify-between rounded-xl border border-navy-100 bg-white px-4 py-3.5 transition-all hover:border-electric-300 hover:shadow-md"
+          className="group flex items-center justify-between rounded-xl border border-navy-100 bg-white px-4 py-3.5 transition-all hover:border-electric-300 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
         >
           <span className="text-sm font-medium text-navy-800 group-hover:text-electric-600">
             {s.name}

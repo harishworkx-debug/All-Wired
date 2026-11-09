@@ -14,7 +14,7 @@ export default function ServiceAreaLinks({ highlight }: { highlight?: string }) 
         <Link
           key={l.slug}
           to={locationUrl(l.slug)}
-          className="group flex items-center justify-between rounded-xl border border-navy-100 bg-white px-4 py-3.5 transition-all hover:border-electric-300 hover:shadow-md"
+          className="group flex items-center justify-between rounded-xl border border-navy-100 bg-white px-4 py-3.5 transition-all hover:border-electric-300 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
         >
           <span className="flex items-center gap-2.5">
             <MapPin className="h-4 w-4 text-amber-500" aria-hidden="true" />
