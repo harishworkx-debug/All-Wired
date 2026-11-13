@@ -42,19 +42,21 @@ function upsertJsonLd(id: string, data: Record<string, unknown> | Record<string,
 }
 
 export default function Seo({ title, description, path, jsonLd, ogImage }: SeoProps) {
-  const canonical = `${SITE_URL}${path}`;
-  const image = ogImage || `${SITE_URL}/og-image.jpg`;
+  // Ensure canonical URL is always formatted properly
+  const canonical = path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path.startsWith('/') ? path : '/' + path}`;
+  const image = ogImage || `${SITE_URL}/icon-192.png`;
 
   useEffect(() => {
     document.title = title;
     upsertMeta('name', 'description', description);
+    upsertMeta('name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
     upsertLink('canonical', canonical);
 
     upsertMeta('property', 'og:title', title);
     upsertMeta('property', 'og:description', description);
     upsertMeta('property', 'og:url', canonical);
     upsertMeta('property', 'og:type', 'website');
-    upsertMeta('property', 'og:site_name', BUSINESS.name);
+    upsertMeta('property', 'og:site_name', BUSINESS.legalName || BUSINESS.name);
     upsertMeta('property', 'og:image', image);
 
     upsertMeta('name', 'twitter:card', 'summary_large_image');

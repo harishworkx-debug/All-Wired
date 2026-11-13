@@ -11,7 +11,7 @@ export function localBusinessSchema() {
     description: `${BUSINESS.name} is a licensed electrician based in ${BUSINESS.address.city}, ${BUSINESS.address.state} providing electrical repair, panel upgrades, EV charger installation, and remodel electrical services.`,
     url: BUSINESS.website,
     telephone: BUSINESS.phoneHref.replace('tel:', ''),
-    image: `${SITE_URL}/og-image.jpg`,
+    image: `${SITE_URL}/icon-192.png`,
     priceRange: '$$',
     paymentAccepted: BUSINESS.paymentMethods.join(', '),
     areaServed: LOCATIONS.map((l) => `${l.city}, ${l.state}`),
@@ -29,6 +29,13 @@ export function localBusinessSchema() {
       longitude: -111.8084,
     },
     hasCredential: `Utah License #${BUSINESS.license.number}`,
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: BUSINESS.rating,
+      reviewCount: BUSINESS.reviewCount,
+      bestRating: '5',
+      worstRating: '1',
+    },
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',

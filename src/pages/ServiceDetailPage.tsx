@@ -214,7 +214,7 @@ export default function ServiceDetailPage() {
 
       <CtaSection
         title={`Call All Wired for ${service.name}`}
-        subtitle="Speak with a licensed electrician today. Free estimates, emergency service, and over 30 years of experience."
+        subtitle="Speak with a licensed electrician today. Free estimates, emergency service, and over 40 years of experience."
       />
     </>
   );

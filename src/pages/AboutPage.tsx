@@ -21,7 +21,7 @@ export default function AboutPage() {
     <>
       <Seo
         title="About All Wired | Licensed Electrician in American Fork, UT"
-        description="All Wired is a licensed electrician in American Fork, UT with over 30 years of experience. Offering personalized service, free estimates, and emergency electrical work. Call (801) 800-2828."
+        description="All Wired is a licensed electrician in American Fork, UT with over 40 years of experience. Offering personalized service, free estimates, and emergency electrical work. Call (801) 800-2828."
         path="/about"
         jsonLd={jsonLd}
       />
@@ -44,7 +44,7 @@ export default function AboutPage() {
               </h1>
               <p className="mt-5 text-base leading-relaxed text-navy-600 sm:text-lg">
                 All Wired is a licensed electrical contractor based in American Fork, Utah. With over
-                30 years of experience in the electrical industry, we take on a wide range of
+                40 years of experience in the electrical industry, we take on a wide range of
                 projects, from full installations for additions and remodels to wiring and panel
                 upgrades and everything in between.
               </p>
@@ -92,8 +92,8 @@ export default function AboutPage() {
               },
               {
                 icon: Clock,
-                title: 'Over 30 Years of Experience',
-                text: 'Three decades in the electrical industry means we have seen and solved nearly every electrical problem you can encounter.',
+                title: 'Over 40 Years of Experience',
+                text: 'Four decades in the electrical industry means we have seen and solved nearly every electrical problem you can encounter.',
               },
               {
                 icon: ShieldCheck,
@@ -170,7 +170,7 @@ export default function AboutPage() {
 
       <CtaSection
         title="Talk to All Wired About Your Project"
-        subtitle="Call today for a free estimate or to discuss your electrical needs. Over 30 years of experience serving American Fork and Utah County."
+        subtitle="Call today for a free estimate or to discuss your electrical needs. Over 40 years of experience serving American Fork and Utah County."
       />
     </>
   );

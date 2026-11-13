@@ -33,11 +33,11 @@ const baseUrl = 'https://www.allwiredamericanfork.com';
 const today = new Date().toISOString().split('T')[0];
 
 const staticPages = [
-  { path: '', changefreq: 'weekly', priority: '1.0' },
+  { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/about', changefreq: 'monthly', priority: '0.8' },
   { path: '/services', changefreq: 'monthly', priority: '0.9' },
   { path: '/service-areas', changefreq: 'monthly', priority: '0.8' },
-  { path: '/contact', changefreq: 'monthly', priority: '0.7' },
+  { path: '/contact', changefreq: 'monthly', priority: '0.8' },
   { path: '/privacy-policy', changefreq: 'yearly', priority: '0.3' },
   { path: '/terms-and-conditions', changefreq: 'yearly', priority: '0.3' },
 ];
@@ -47,7 +47,8 @@ xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
 // Static pages
 for (const page of staticPages) {
-  xml += `  <url><loc>${baseUrl}${page.path}</loc><lastmod>${today}</lastmod><changefreq>${page.changefreq}</changefreq><priority>${page.priority}</priority></url>\n`;
+  const loc = page.path === '/' ? `${baseUrl}/` : `${baseUrl}${page.path}`;
+  xml += `  <url><loc>${loc}</loc><lastmod>${today}</lastmod><changefreq>${page.changefreq}</changefreq><priority>${page.priority}</priority></url>\n`;
 }
 
 // Core Service Pillar pages (e.g. /electrical-repairs-and-upgrades)
@@ -75,5 +76,5 @@ for (const sSlug of serviceSlugs) {
 xml += '</urlset>\n';
 
 fs.writeFileSync(path.join(rootDir, 'public/sitemap.xml'), xml, 'utf8');
-console.log(`Generated sitemap with ${staticPages.length + coreServiceSlugs.length + serviceSlugs.length + locationSlugs.length + (serviceSlugs.length * locationSlugs.length)} URLs successfully.`);
-
+const totalUrls = staticPages.length + coreServiceSlugs.length + serviceSlugs.length + locationSlugs.length + (serviceSlugs.length * locationSlugs.length);
+console.log(`Generated sitemap with ${totalUrls} URLs successfully.`);

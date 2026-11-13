@@ -66,7 +66,7 @@ export default function ServiceLocationPage({
     <>
       <Seo
         title={`${service.name} in ${location.city}, ${location.state} | All Wired`}
-        description={`${service.name} in ${location.city}, ${location.state}. ${service.tagline}. Licensed electrician with over 30 years of experience. Call ${BUSINESS.phone}.`}
+        description={`${service.name} in ${location.city}, ${location.state}. ${service.tagline}. Licensed electrician with over 40 years of experience. Call ${BUSINESS.phone}.`}
         path={path}
         jsonLd={jsonLd}
         ogImage={service.image}
@@ -259,7 +259,7 @@ export default function ServiceLocationPage({
 
       <CtaSection
         title={`Call All Wired for ${service.name} in ${location.city}`}
-        subtitle="Speak with a licensed electrician today. Free estimates, emergency service, and over 30 years of experience serving Utah County."
+        subtitle="Speak with a licensed electrician today. Free estimates, emergency service, and over 40 years of experience serving Utah County."
       />
     </>
   );

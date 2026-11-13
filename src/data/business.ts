@@ -327,7 +327,7 @@ export const SERVICES: ServiceInfo[] = [
       },
       {
         q: 'Are you licensed for residential electrical work in Utah?',
-        a: 'Yes. All Wired is licensed in Utah, license number 123184-5502, with over 30 years of experience in the electrical industry.',
+        a: 'Yes. All Wired is licensed in Utah, license number 123184-5502, with over 40 years of experience in the electrical industry.',
       },
     ],
     metaTitle: 'Residential Electrician in American Fork, UT | All Wired',
@@ -609,9 +609,15 @@ export type LocationSlug =
   | 'alpine-ut'
   | 'cedar-hills-ut'
   | 'lindon-ut'
+  | 'saratoga-springs-ut'
   | 'orem-ut'
   | 'provo-ut'
   | 'draper-ut';
+
+export interface LocationProject {
+  title: string;
+  description: string;
+}
 
 export interface LocationInfo {
   slug: LocationSlug;
@@ -621,6 +627,14 @@ export interface LocationInfo {
   short: string;
   description: string;
   context: string;
+  housingProfile: string;
+  challenges: string[];
+  projects: LocationProject[];
+  utilityInfo: {
+    powerCompany: string;
+    permitsOffice: string;
+    notes: string;
+  };
   faqs: { q: string; a: string }[];
   metaTitle: string;
   metaDescription: string;
@@ -634,22 +648,61 @@ export const LOCATIONS: LocationInfo[] = [
     county: 'Utah County',
     short: 'American Fork',
     description:
-      'American Fork is the primary service area for All Wired. Based right here in town, we provide electrical repair, panel upgrades, EV charger installation, and remodel electrical work to homeowners and businesses throughout American Fork.',
+      'All Wired is proudly based in American Fork, UT. Located at 282 N 300 E, we provide dependable residential and commercial electrical repairs, 200A panel upgrades, EV charger installations, and whole-home rewiring across American Fork neighborhoods.',
     context:
-      'American Fork sits at the heart of Utah County, with a growing mix of established neighborhoods and new construction. Many homes in the area were built decades ago and benefit from panel upgrades, updated wiring, and modern electrical safety improvements. As a local electrician based in American Fork, we understand the common electrical issues facing these homes.',
-    faqs: [
+      'American Fork serves as the direct headquarters and primary service hub for All Wired LLC. The city features a distinctive mix of historic residential properties near downtown Main Street, established mid-century brick homes from the 1950s and 1970s along 500 East, and contemporary custom subdivisions along 900 West. Because our shop is located right here in town, American Fork homeowners enjoy rapid dispatch, same-day emergency repairs, and electricians who intimately know local Utah building codes.',
+    housingProfile:
+      'Homes built in American Fork between the 1950s and 1980s frequently feature original 100-amp split-bus electrical panels, ungrounded two-prong receptacles, or early aluminum branch wiring. As modern families add high-draw appliances like central air conditioning, induction ranges, and Level 2 electric vehicle chargers, these older electrical systems become critically overloaded.',
+    challenges: [
+      'Outdated 60A and 100A main service panels lacking physical breaker space for modern electrical loads',
+      'Ungrounded two-prong receptacles in established living areas and bedrooms requiring GFCI/AFCI retrofits',
+      'Aluminum branch wiring connections in 1960s-1970s homes requiring Copalum or AlumiConn remediation',
+      'Need for whole-home surge protection against regional Rocky Mountain Power grid fluctuations',
+    ],
+    projects: [
       {
-        q: 'Is All Wired based in American Fork?',
-        a: 'Yes. All Wired is located in American Fork, Utah and serves the surrounding Utah County communities. We are your local electrician.',
+        title: '200-Amp Main Panel Heavy-Up on 300 East',
+        description:
+          'Replaced a hazardous 100-amp Zinsco split-bus panel with a modern Square D 200-amp service panel, coordinated meter disconnect with Rocky Mountain Power, and passed City of American Fork final inspection in a single day.',
       },
       {
-        q: 'Do you offer emergency electrical service in American Fork?',
-        a: 'Yes. All Wired offers emergency electrical services. If you have an urgent issue in American Fork, call (801) 800-2828.',
+        title: 'Whole-Home Recessed Lighting & Rewiring near Greenwood Skate Park',
+        description:
+          'Removed older surface-mount fixtures and installed 18 wafer-thin canless LED recessed lights with Lutron smart dimmers, plus dedicated 20-amp kitchen small appliance branch circuits.',
+      },
+      {
+        title: 'Level 2 EV Wall Connector Installation off 900 West',
+        description:
+          'Ran a dedicated 60-amp 240-volt circuit through protective EMT conduit from the garage panel to power a hardwired Tesla Universal Wall Connector.',
       },
     ],
-    metaTitle: 'Electrician in American Fork, UT | All Wired',
+    utilityInfo: {
+      powerCompany: 'Rocky Mountain Power (Utah North Region)',
+      permitsOffice: 'City of American Fork Community Development / Building Division',
+      notes:
+        'We pull all electrical permits directly with American Fork City and coordinate scheduled meter disconnect/reconnects with Rocky Mountain Power.',
+    },
+    faqs: [
+      {
+        q: 'Is All Wired locally based in American Fork?',
+        a: 'Yes. Our shop and office are located at 282 N 300 E, Unit 307 in American Fork, UT 84003. When you call, you speak directly with local electricians who live and work right here in town.',
+      },
+      {
+        q: 'How quickly can you respond to an electrical emergency in American Fork?',
+        a: 'Because our team is based in American Fork, we offer same-day emergency electrical dispatch for dangerous breaker panel failures, burning smells, power loss to heating circuits, and sparking receptacles.',
+      },
+      {
+        q: 'Do you pull permits for panel upgrades in American Fork?',
+        a: 'Yes. We manage the entire municipal permitting process with the American Fork Building Division, coordinate the Rocky Mountain Power meter release, and schedule the final city inspection.',
+      },
+      {
+        q: 'Can you upgrade the two-prong outlets in my older American Fork home?',
+        a: 'Absolutely. We install modern three-prong tamper-resistant GFCI and AFCI receptacles or pull new grounded copper circuits, ensuring full National Electrical Code compliance.',
+      },
+    ],
+    metaTitle: 'Electrician in American Fork, UT | All Wired LLC',
     metaDescription:
-      'All Wired is a licensed electrician based in American Fork, UT offering repairs, panel upgrades, EV chargers, and remodel electrical work. Call (801) 800-2828.',
+      'Licensed electrician based in American Fork, UT. 40+ years experience providing repairs, 200A panel upgrades, EV chargers, and wiring. Call (801) 800-2828.',
   },
   {
     slug: 'lehi-ut',
@@ -658,46 +711,61 @@ export const LOCATIONS: LocationInfo[] = [
     county: 'Utah County',
     short: 'Lehi',
     description:
-      'All Wired provides electrical services to Lehi, UT, just north of American Fork. From panel upgrades and EV charger installation to repairs and remodel wiring, we help Lehi homeowners and businesses keep their electrical systems safe and up to code.',
+      'All Wired is the trusted residential electrician for Lehi, UT, located just minutes north of our American Fork headquarters. We deliver premier electrical panel upgrades, basement finish electrical rough-ins, and Level 2 EV charging stations throughout Silicon Slopes and Lehi communities.',
     context:
-      'Lehi is one of the fastest-growing cities in Utah County, with many newer homes and tech-driven commercial developments. As homes add EVs, smart home systems, and additional circuits, the demand for panel upgrades and dedicated circuits continues to grow. We serve Lehi from our American Fork base.',
-    faqs: [
+      'Lehi has evolved into Utah’s dynamic Silicon Slopes tech hub, experiencing unprecedented residential expansion. Neighborhoods across Traverse Mountain, Thanksgiving Point, Cold Springs Ranch, and Holbrook Farms feature newer multi-level homes that demand high electrical capacity. From dual-EV families needing high-amperage garage circuits to homeowners finishing spacious basements, All Wired delivers clean, code-certified electrical craftsmanship.',
+    housingProfile:
+      'While historic Lehi near State Street features older mid-century homes requiring service panel modernization, the majority of Lehi homes were constructed over the last 15 years. These properties frequently have 200A builder-grade panels that are already packed with breakers for central AC, heat pumps, and modern appliances, leaving zero space for basement finishes or EV chargers.',
+    challenges: [
+      'Builder-grade panels with full bus bars needing 100A sub-panel additions for basement living spaces',
+      'High demand for dual Level 2 EV chargers (48A continuous charging) requiring precise load calculations',
+      'Finishing unfinished basements with multi-zone recessed lighting, bathroom exhaust fans, and wet bar circuits',
+      'Smart electrical upgrades including smart breaker panels, automated lighting scenes, and home server circuits',
+    ],
+    projects: [
       {
-        q: 'Do you serve Lehi, Utah?',
-        a: 'Yes. All Wired serves Lehi and the surrounding Utah County communities from our American Fork location. Call to confirm availability for your area.',
+        title: 'Traverse Mountain Dual EV Charger & 100A Subpanel',
+        description:
+          'Calculated existing residential load, installed a 100-amp sub-panel in the garage, and ran twin dedicated 50-amp circuits for simultaneous Level 2 EV charging.',
       },
       {
-        q: 'Can you install an EV charger at my Lehi home?',
-        a: 'Yes. We install Level 2 EV chargers for homeowners in Lehi, including any panel upgrades needed to support the charger.',
+        title: 'Full Basement Electrical Rough-In & Trim off 2100 North',
+        description:
+          'Wired an 1,800 sq ft basement finish including 2 bedrooms with AFCI circuits, full bathroom with GFCI protection, home theater audio/video conduit, and 24 recessed LED wafer lights.',
+      },
+      {
+        title: 'Backyard Hot Tub 50A GFCI Disconnect in Cold Springs Ranch',
+        description:
+          'Trenched 60 feet of underground direct-burial conduit, installed an exterior weatherproof 50-amp GFCI disconnect panel, and wired a luxury swim spa.',
       },
     ],
-    metaTitle: 'Electrician in Lehi, UT | All Wired',
-    metaDescription:
-      'Electrician serving Lehi, UT with repairs, panel upgrades, EV charger installation, and remodel wiring. Licensed and local. Call (801) 800-2828.',
-  },
-  {
-    slug: 'pleasant-grove-ut',
-    city: 'Pleasant Grove',
-    state: 'UT',
-    county: 'Utah County',
-    short: 'Pleasant Grove',
-    description:
-      'All Wired offers electrical repair, panel upgrades, EV charger installation, and remodel electrical services to Pleasant Grove, UT. Located just minutes from American Fork, we are your nearby licensed electrician.',
-    context:
-      'Pleasant Grove borders American Fork to the south and shares much of the same housing stock, including many mid-century homes that benefit from electrical updates. We are familiar with the common panel and wiring needs in this area.',
+    utilityInfo: {
+      powerCompany: 'Lehi City Power / Rocky Mountain Power',
+      permitsOffice: 'Lehi City Building & Safety Department',
+      notes:
+        'Lehi operates its own municipal power utility (Lehi City Power) alongside Rocky Mountain Power service areas. We are thoroughly versed in Lehi City Power meter connection specifications and local inspection codes.',
+    },
     faqs: [
       {
-        q: 'Do you serve Pleasant Grove?',
-        a: 'Yes. Pleasant Grove is just minutes from our American Fork location. Call (801) 800-2828 to discuss your electrical needs.',
+        q: 'Does All Wired work with Lehi City Power?',
+        a: 'Yes. We regularly coordinate meter disconnects, service upgrades, and inspections with Lehi City Power as well as Rocky Mountain Power.',
       },
       {
-        q: 'Can you upgrade my electrical panel in Pleasant Grove?',
-        a: 'Yes. We handle panel upgrades in Pleasant Grove, including permits and utility coordination. Call us to discuss your home.',
+        q: 'Can you install an EV charger at my Traverse Mountain home?',
+        a: 'Yes. We install Tesla Wall Connectors, ChargePoint, and universal Level 2 EV charging stations, handling electrical load calculations to ensure your panel handles continuous charging safely.',
+      },
+      {
+        q: 'Do you wire basement finishes in Lehi?',
+        a: 'Basement finishing is one of our primary specialties. We handle complete electrical design, rough-in wiring, sub-panel installation, and final fixture trim-out for Lehi homeowners.',
+      },
+      {
+        q: 'How far is All Wired from Lehi?',
+        a: 'Our shop is located right on the American Fork/Lehi border on 300 East. We are less than 7 minutes from Lehi Main Street and Traverse Mountain.',
       },
     ],
-    metaTitle: 'Electrician in Pleasant Grove, UT | All Wired',
+    metaTitle: 'Electrician in Lehi, UT | Panel Upgrades & EV Chargers | All Wired',
     metaDescription:
-      'Electrician serving Pleasant Grove, UT with repairs, panel upgrades, EV chargers, and remodel electrical work. Licensed and local. Call (801) 800-2828.',
+      'Licensed electrician serving Lehi, UT and Silicon Slopes. Expert 200A panel upgrades, basement wiring, and Level 2 EV charger installations. Call (801) 800-2828.',
   },
   {
     slug: 'highland-ut',
@@ -706,22 +774,57 @@ export const LOCATIONS: LocationInfo[] = [
     county: 'Utah County',
     short: 'Highland',
     description:
-      'All Wired provides electrical services to Highland, UT, a neighboring community just west of American Fork. Whether you need a repair, panel upgrade, or EV charger installation, we are nearby and ready to help.',
+      'Professional electrician serving Highland, UT, directly west of American Fork along SR-92. All Wired specializes in large-lot residential electrical upgrades, detached workshop sub-panels, whole-home backup generators, and custom home rewiring.',
     context:
-      'Highland is a residential community adjacent to American Fork with a mix of established and newer homes. Many Highland homeowners are adding EV chargers and upgrading panels to handle modern electrical demands.',
-    faqs: [
+      'Highland is an upscale community renowned for spacious half-acre to multi-acre residential parcels, equestrian properties, and custom homes. Highland homeowners often require specialized electrical solutions that standard electrical contractors overlook—such as high-capacity sub-panels for detached woodworking shops, 240V RV electrical pedestals, and whole-home standby generator systems to weather winter canyon gusts coming off Timpanogos.',
+    housingProfile:
+      'Highland features substantial custom single-family estates built from the 1980s through the 2010s. Homes often encompass 4,000 to 8,000+ square feet with detached garages, outbuildings, heated swimming pools, and high-draw electric HVAC equipment that require 200A to 400A service heavy-ups.',
+    challenges: [
+      'Detached workshops and barns requiring underground trenching and dedicated 100A sub-panels',
+      'Frequent winter power outages caused by canyon winds necessitating standby generator transfer switches',
+      'High total ampacity demands from multiple heat pumps, swimming pool pumps, and electric vehicle chargers',
+      'Outdoor landscape and driveway architectural lighting across large acreage properties',
+    ],
+    projects: [
       {
-        q: 'Do you serve Highland, Utah?',
-        a: 'Yes. Highland is just west of American Fork and within our service area. Call (801) 800-2828 to discuss your project.',
+        title: '100-Amp Detached Shop Sub-Panel off Timpanogos Highway',
+        description:
+          'Excavated a 110-foot trench, placed heavy-duty PVC conduit with copper feeders, and installed a 100A subpanel powering 240V air compressors and metalworking equipment.',
       },
       {
-        q: 'Can you help with electrical repairs in Highland?',
-        a: 'Yes. We handle electrical repairs, panel upgrades, and installations for homeowners in Highland and nearby communities.',
+        title: 'Generac 22kW Whole-Home Standby Generator Installation',
+        description:
+          'Installed a 200A automatic transfer switch (ATS) and poured concrete equipment pad for a standby natural gas generator providing instant whole-home power resilience.',
+      },
+      {
+        title: '240V 50-Amp RV Storage Power Station',
+        description:
+          'Wired an outdoor weatherproof RV pedestal with dedicated 50A 120/240V NEMA 14-50R and 30A TT-30 receptacles for motorhome climate control.',
       },
     ],
-    metaTitle: 'Electrician in Highland, UT | All Wired',
+    utilityInfo: {
+      powerCompany: 'Rocky Mountain Power',
+      permitsOffice: 'Highland City Building Division',
+      notes:
+        'Highland City requires specific municipal building permits for outbuilding underground feeders and automatic transfer switches. We manage all paperwork and scheduling.',
+    },
+    faqs: [
+      {
+        q: 'Can you run electricity from my Highland house to a detached garage or workshop?',
+        a: 'Yes. We trench underground conduit, size copper feeder conductors according to distance and voltage drop, and install dedicated sub-panels with full breaker protection.',
+      },
+      {
+        q: 'Do you install whole-home backup generators in Highland?',
+        a: 'Yes. We install automatic standby generators and transfer switches so your heating, refrigeration, and well pumps keep running during winter canyon power outages.',
+      },
+      {
+        q: 'What is your service response time in Highland?',
+        a: 'Highland directly borders American Fork along 6000 West and SR-92. Our technicians arrive in Highland within 10 to 15 minutes of dispatch.',
+      },
+    ],
+    metaTitle: 'Electrician in Highland, UT | Custom Wiring & Generators | All Wired',
     metaDescription:
-      'Electrician serving Highland, UT with electrical repair, panel upgrades, EV chargers, and more. Licensed and local. Call (801) 800-2828.',
+      'Licensed electrician serving Highland, UT. High-capacity panel upgrades, detached workshop wiring, backup generators, and EV chargers. Call (801) 800-2828.',
   },
   {
     slug: 'alpine-ut',
@@ -730,46 +833,116 @@ export const LOCATIONS: LocationInfo[] = [
     county: 'Utah County',
     short: 'Alpine',
     description:
-      'All Wired serves Alpine, UT with electrical repair, panel upgrades, EV charger installation, and remodel electrical work. Located just north of American Fork, we are your nearby licensed electrician.',
+      'Premier residential electrical contractor serving Alpine, UT. Located at the base of the Wasatch Range, All Wired delivers custom luxury home electrical solutions, 400-amp service heavy-ups, high-ceiling chandelier installations, and automatic standby power.',
     context:
-      'Alpine is a smaller residential community north of American Fork, known for its larger lots and established homes. These properties often need panel upgrades and dedicated circuits for additions, workshops, and EV charging.',
-    faqs: [
+      'Nestled along the picturesque slopes of Lone Peak and American Fork Canyon, Alpine is celebrated for its sprawling custom estates and luxury mountain-bench homes. These extraordinary properties require master-level electrical craftsmanship capable of handling intricate multi-switch lighting scenes, high-vaulted ceiling fixtures, heated roof de-icing systems, and sophisticated backup electrical infrastructure.',
+    housingProfile:
+      'Alpine homes are predominantly large-scale custom builds ranging from 5,000 to over 12,000 square feet. Many properties feature dual 200A electrical services (400A total), multi-story foyers requiring specialized fixture lifting mechanisms, and extensive exterior grounds requiring architectural landscape illumination.',
+    challenges: [
+      'Vaulted foyer and great room chandelier installations requiring motorized lift systems',
+      'Roof eave and valley heat tape circuit installations to combat heavy Wasatch winter snow and ice dams',
+      'Mountain canyon weather leading to frequent overhead grid interruptions',
+      'Architectural estate landscape lighting with multi-zone dusk-to-dawn astronomical timers',
+    ],
+    projects: [
       {
-        q: 'Do you serve Alpine, Utah?',
-        a: 'Yes. Alpine is just north of American Fork and within our service area. Call (801) 800-2828 to confirm availability.',
+        title: 'Motorized Chandelier Lift & Custom LED Dimming on Alpine Bench',
+        description:
+          'Installed an Aladdin Light Lift motorized hoist in a 24-foot vaulted foyer, safely supporting a 180-pound crystal chandelier with integrated Lutron wireless dimming.',
       },
       {
-        q: 'Can you install an EV charger at my Alpine home?',
-        a: 'Yes. We install Level 2 EV chargers in Alpine, including any panel or service upgrades needed to support the charger.',
+        title: '400-Amp Dual Panel Service Heavy-Up',
+        description:
+          'Upgraded an older estate electrical service to dual 200A Square D QO panels with whole-home surge suppression and balanced phase loads for continuous geothermal heat pumps.',
+      },
+      {
+        title: 'Roof Eave Heat Cable & De-Icing Dedicated Circuits',
+        description:
+          'Installed GFEP (Ground Fault Equipment Protection) 30A circuits controlling self-regulating heat trace cables along roof eaves, preventing winter ice dams and gutter damage.',
       },
     ],
-    metaTitle: 'Electrician in Alpine, UT | All Wired',
+    utilityInfo: {
+      powerCompany: 'Rocky Mountain Power',
+      permitsOffice: 'Alpine City Building Department',
+      notes:
+        'Alpine electrical permits require rigorous load calculations for 400A services. We provide engineered schematics and coordinate final municipal inspections.',
+    },
+    faqs: [
+      {
+        q: 'Can you safely hang heavy chandeliers in high Alpine entryways?',
+        a: 'Yes. We install motorized chandelier lifts and structural steel ceiling boxes rated for fixtures weighing 200+ pounds, making future bulb replacement and cleaning effortless.',
+      },
+      {
+        q: 'How do you protect Alpine homes from lightning surges and power spikes?',
+        a: 'We install Type 1 and Type 2 whole-house surge protective devices (SPD) directly inside your main service panel, safeguarding sensitive smart home electronics and high-end appliances.',
+      },
+      {
+        q: 'Do you service homes in the Alpine Cove and Alpine Bench neighborhoods?',
+        a: 'Yes, we regularly work on luxury estates throughout Alpine Cove, Box Elder Canyon, and the foothills.',
+      },
+    ],
+    metaTitle: 'Electrician in Alpine, UT | Luxury Home Wiring & 400A Panels | All Wired',
     metaDescription:
-      'Electrician serving Alpine, UT with repairs, panel upgrades, EV chargers, and remodel electrical work. Licensed and local. Call (801) 800-2828.',
+      'Premier licensed electrician serving Alpine, UT. 400-amp service upgrades, chandelier installations, backup generators, and custom wiring. Call (801) 800-2828.',
   },
   {
-    slug: 'cedar-hills-ut',
-    city: 'Cedar Hills',
+    slug: 'pleasant-grove-ut',
+    city: 'Pleasant Grove',
     state: 'UT',
     county: 'Utah County',
-    short: 'Cedar Hills',
+    short: 'Pleasant Grove',
     description:
-      'All Wired provides electrical services to Cedar Hills, UT, neighboring American Fork to the northwest. From repairs to panel upgrades and EV charger installation, we help Cedar Hills homeowners with their electrical needs.',
+      'All Wired provides licensed electrical repair, panel replacements, EV charger installations, and lighting renovations to Pleasant Grove, UT. Located immediately south of our American Fork base, we are your neighborhood electrician.',
     context:
-      'Cedar Hills is a residential community adjacent to American Fork and Pleasant Grove. The area has a mix of established homes that benefit from electrical safety updates and newer homes adding modern features like EV charging.',
-    faqs: [
+      'Known as Utah’s City of Trees, Pleasant Grove shares a rich community history with American Fork. From mature residential neighborhoods near Battle Creek and the historic downtown grid to hillside custom homes along the east bench, Pleasant Grove properties represent diverse electrical eras requiring skilled diagnostic capabilities and code compliance.',
+    housingProfile:
+      'Pleasant Grove contains many mid-century ramblers and split-level homes built between 1960 and 1990. These homes often feature original 100-amp panels that struggle to power modern air conditioning and entertainment systems, as well as outdated wiring lacking modern arc-fault (AFCI) safety protection.',
+    challenges: [
+      'Outdated Zinsco and Federal Pacific electric panels that present elevated fire hazards',
+      'Kitchen and bathroom circuits lacking code-required GFCI protection near water sources',
+      'Inefficient incandescent surface lighting ready for modern recessed LED wafer conversions',
+      'Dedicated circuits needed for basement accessory apartments (ADUs) and rental finishes',
+    ],
+    projects: [
       {
-        q: 'Do you serve Cedar Hills?',
-        a: 'Yes. Cedar Hills is within our Utah County service area. Call (801) 800-2828 to discuss your electrical project.',
+        title: 'Federal Pacific Panel Replacement near Battle Creek Falls',
+        description:
+          'Replaced a hazardous 100A Federal Pacific Stab-Lok panel with a 200A Siemens panel, installed two new 8-foot copper grounding rods, and added whole-house surge protection.',
       },
       {
-        q: 'Can you upgrade an electrical panel in Cedar Hills?',
-        a: 'Yes. We handle panel upgrades in Cedar Hills with full permit and utility coordination. Call us to get started.',
+        title: 'Full Kitchen Remodel Dedicated Circuit Wiring off Center Street',
+        description:
+          'Routed dedicated circuits for an induction cooktop, double wall oven, microwave drawer, dishwasher, and island GFCI receptacles with under-cabinet LED task lighting.',
+      },
+      {
+        title: 'Accessory Apartment (ADU) Subpanel Installation',
+        description:
+          'Installed a dedicated 60-amp sub-panel for a permitted basement rental unit, complete with separate AFCI breaker runs for bedrooms and dedicated kitchen appliance lines.',
       },
     ],
-    metaTitle: 'Electrician in Cedar Hills, UT | All Wired',
+    utilityInfo: {
+      powerCompany: 'Rocky Mountain Power',
+      permitsOffice: 'Pleasant Grove City Community Development',
+      notes:
+        'We pull all electrical permits directly through Pleasant Grove City and coordinate meter releases with Rocky Mountain Power.',
+    },
+    faqs: [
+      {
+        q: 'Are you close to Pleasant Grove?',
+        a: 'Yes! Pleasant Grove borders American Fork directly along State Street. Our electricians are typically on-site in Pleasant Grove within 5 to 10 minutes.',
+      },
+      {
+        q: 'Why should I replace a Federal Pacific electrical panel in my Pleasant Grove home?',
+        a: 'Federal Pacific Stab-Lok panels are notorious for failing to trip during overloads, creating significant fire hazards. Insurance companies frequently require their replacement before binding home policies.',
+      },
+      {
+        q: 'Can you add recessed lighting to my older textured plaster ceiling?',
+        a: 'Yes. We use specialized drywall tools and slim wafer LED fixtures that fit flush into ceilings with minimal disruption to existing plaster or texture.',
+      },
+    ],
+    metaTitle: 'Electrician in Pleasant Grove, UT | Panel Upgrades & Repairs | All Wired',
     metaDescription:
-      'Electrician serving Cedar Hills, UT with repairs, panel upgrades, EV chargers, and more. Licensed and local. Call (801) 800-2828.',
+      'Licensed electrician serving Pleasant Grove, UT. Fast repairs, 200A panel upgrades, EV charger installation, and kitchen/bath rewiring. Call (801) 800-2828.',
   },
   {
     slug: 'lindon-ut',
@@ -778,22 +951,175 @@ export const LOCATIONS: LocationInfo[] = [
     county: 'Utah County',
     short: 'Lindon',
     description:
-      'All Wired serves Lindon, UT with electrical repair, panel upgrades, EV charger installation, and commercial electrical work. Located just south of American Fork, we are your nearby licensed electrician for both homes and businesses.',
+      'All Wired delivers expert commercial electrical contracting and residential services to Lindon, UT. From 3-phase industrial power distribution in Lindon business parks to home panel upgrades and EV chargers, we handle projects of all scales.',
     context:
-      'Lindon sits between American Fork and Pleasant Grove and has a strong mix of residential and commercial properties. We handle both home electrical projects and commercial wiring and panel work in Lindon.',
-    faqs: [
+      'Lindon occupies a strategic position directly between American Fork and Orem, featuring both expansive residential acreage properties (A Little Bit of Country) and vibrant commercial and tech centers along State Street and 2000 West. Our electricians serve both homeowners needing residential wiring updates and business owners requiring commercial tenant improvements.',
+    housingProfile:
+      'Residential Lindon features generous half-acre to one-acre home sites with detached shops, barns, and animal facilities, alongside newer high-end custom subdivisions. The commercial corridor houses manufacturing facilities, tech offices, and auto services requiring heavy commercial power.',
+    challenges: [
+      'Commercial tenant improvements requiring 3-phase 208V/480V power distribution and EMT conduit',
+      'Detached hobby shops and workshops requiring high-amperage 240V equipment circuits',
+      'High-bay LED lighting retrofits for commercial warehouses and automotive bays',
+      'Commercial EV charging station banks for Lindon business fleets and employees',
+    ],
+    projects: [
       {
-        q: 'Do you serve Lindon, Utah?',
-        a: 'Yes. Lindon is just south of American Fork and within our service area. Call (801) 800-2828 to discuss your needs.',
+        title: 'Commercial Warehouse High-Bay LED Lighting Retrofit off 2000 West',
+        description:
+          'Replaced 48 outdated 400-watt metal halide fixtures with ultra-efficient 150-watt commercial LED high-bays, cutting warehouse lighting energy consumption by 62%.',
       },
       {
-        q: 'Can you do commercial electrical work in Lindon?',
-        a: 'Yes. All Wired handles commercial wiring, panel upgrades, and EV charger installation for Lindon businesses.',
+        title: 'Detached 100A Woodworking Shop Wiring on Geneva Road',
+        description:
+          'Installed a 100A subpanel, 12 dedicated 20A 120V tool circuits, and three 240V 30A outlets for dust collection, table saws, and planer equipment.',
+      },
+      {
+        title: 'Fleet Level 2 Commercial EV Charging Station Bank',
+        description:
+          'Designed and installed a 4-port commercial Level 2 EV charging station with dual pedestals, load sharing, and bollard impact protection for a local logistics office.',
       },
     ],
-    metaTitle: 'Electrician in Lindon, UT | All Wired',
+    utilityInfo: {
+      powerCompany: 'Rocky Mountain Power',
+      permitsOffice: 'Lindon City Building Department',
+      notes:
+        'Lindon requires commercial electrical plan review for tenant upgrades and industrial work. We provide engineered single-line diagrams and manage city approvals.',
+    },
+    faqs: [
+      {
+        q: 'Do you handle commercial electrical projects in Lindon?',
+        a: 'Yes. We handle commercial tenant buildouts, 3-phase power, LED retrofits, machine hookups, and commercial EV charging stations throughout Lindon business parks.',
+      },
+      {
+        q: 'Can you wire high-draw 240V equipment in my home workshop?',
+        a: 'Yes. We size conductors and breakers for air compressors, welders, CNC machinery, and dust collection systems with proper disconnect switches.',
+      },
+      {
+        q: 'How quickly can you get to a service call in Lindon?',
+        a: 'Lindon is located immediately south of American Fork down State Street. We can reach any Lindon residential or commercial location in 5 to 10 minutes.',
+      },
+    ],
+    metaTitle: 'Electrician in Lindon, UT | Residential & Commercial | All Wired',
     metaDescription:
-      'Electrician serving Lindon, UT with residential and commercial electrical services, panel upgrades, and EV chargers. Licensed and local. Call (801) 800-2828.',
+      'Licensed electrician serving Lindon, UT. Commercial 3-phase wiring, residential panel upgrades, EV chargers, and shop sub-panels. Call (801) 800-2828.',
+  },
+  {
+    slug: 'cedar-hills-ut',
+    city: 'Cedar Hills',
+    state: 'UT',
+    county: 'Utah County',
+    short: 'Cedar Hills',
+    description:
+      'Dependable licensed electrician serving Cedar Hills, UT. Perched at the mouth of American Fork Canyon, All Wired provides residential panel upgrades, basement electrical finishing, whole-home surge protection, and Level 2 EV charging.',
+    context:
+      'Cedar Hills is an attractive residential bench community offering panoramic views of Utah Valley and Mount Timpanogos. Bordering American Fork and Highland, Cedar Hills is made up of quiet residential neighborhoods surrounding the Cedar Hills Golf Club. Homeowners here prioritize modern comfort, energy efficiency, and reliable electrical protection against mountain bench weather.',
+    housingProfile:
+      'Homes in Cedar Hills were primarily constructed from the late 1990s through the 2010s. Many homes feature large unfinished or partially finished daylight basements, multi-car garages ideal for EV charging stations, and builder-grade electrical panels that have reached maximum breaker capacity.',
+    challenges: [
+      'Builder-grade panels lacking space for basement finishing or hot tubs',
+      'High elevation and mountain storms causing electrical grid spikes requiring surge protection',
+      'Finishing daylight basements with high-efficiency LED lighting and dedicated circuits',
+      'Installing garage EV charging stations with clean conduit routing',
+    ],
+    projects: [
+      {
+        title: 'Basement Finish Electrical Wiring near Cedar Hills Golf Club',
+        description:
+          'Completed full electrical rough-in and trim for a 1,400 sq ft basement including family room, wet bar with GFCI circuits, bedroom AFCI protection, and 16 recessed wafer lights.',
+      },
+      {
+        title: 'Level 2 Tesla Wall Connector Installation on Ironwood Drive',
+        description:
+          'Installed a 60-amp dedicated breaker in the main panel, routed EMT conduit through the garage, and commissioned a hardwired Tesla Level 2 charger.',
+      },
+      {
+        title: 'Whole-Home Surge Protection & Panel Tune-Up off Canyon Road',
+        description:
+          'Installed an Eaton 108kA whole-home surge protective device, torqued all panel terminal lugs to specification, and balanced phase loads.',
+      },
+    ],
+    utilityInfo: {
+      powerCompany: 'Rocky Mountain Power',
+      permitsOffice: 'City of Cedar Hills Building & Safety Division',
+      notes:
+        'Cedar Hills permits are coordinated through the city building department. We handle all documentation and schedule final inspections.',
+    },
+    faqs: [
+      {
+        q: 'Do you wire basements in Cedar Hills?',
+        a: 'Yes. Finishing basements is one of our most popular services in Cedar Hills. We handle everything from sub-panels and rough-in wiring to recessed lights and inspection sign-offs.',
+      },
+      {
+        q: 'Why do I need whole-home surge protection in Cedar Hills?',
+        a: 'Due to Cedar Hills elevated location near the mouth of the canyon, power lines are exposed to severe weather, lightning, and grid surges that can destroy expensive smart appliances and HVAC boards.',
+      },
+      {
+        q: 'How fast can you arrive in Cedar Hills?',
+        a: 'Cedar Hills directly adjoins American Fork. We are typically on-site in Cedar Hills within 5 to 10 minutes.',
+      },
+    ],
+    metaTitle: 'Electrician in Cedar Hills, UT | Panel Upgrades & EV Chargers | All Wired',
+    metaDescription:
+      'Licensed residential electrician serving Cedar Hills, UT. Basement electrical wiring, 200A panel upgrades, EV chargers, and surge protection. Call (801) 800-2828.',
+  },
+  {
+    slug: 'saratoga-springs-ut',
+    city: 'Saratoga Springs',
+    state: 'UT',
+    county: 'Utah County',
+    short: 'Saratoga Springs',
+    description:
+      'All Wired provides licensed electrical services to Saratoga Springs, UT, located on the northwest shores of Utah Lake just west of Lehi. We specialize in basement finishing electrical wiring, Level 2 EV charging stations, outdoor living power, and hot tub circuits.',
+    context:
+      'Saratoga Springs is one of Utah’s fastest-growing cities, attracting families and tech professionals commuting to Silicon Slopes. With master-planned lakeside communities such as Harvest Hills, Talon’s Cove, and Saratoga Highlands, homes here require skilled electricians to complete unfinished basements, install EV charging stations, and power backyard living amenities.',
+    housingProfile:
+      'Almost all homes in Saratoga Springs have been built since 2000, with extensive new construction underway. While panels are modern 200A units, builders often leave panels tightly loaded, requiring careful load calculations and sub-panel additions when homeowners add basement suites, hot tubs, or multiple electric vehicles.',
+    challenges: [
+      'Unfinished basements requiring complete branch wiring, AFCI protection, and sub-panels',
+      'Rapid electric vehicle adoption requiring 40A to 60A Level 2 chargers for daily commuters',
+      'Backyard hot tubs, swim spas, and outdoor kitchen electrical feeds requiring GFCI safety disconnects',
+      'Whole-home surge protection to protect sensitive home office electronics',
+    ],
+    projects: [
+      {
+        title: 'Full Basement Electrical Installation in Harvest Hills',
+        description:
+          'Designed and wired complete electrical layout for a 1,600 sq ft basement remodel with 2 bedrooms, home gym, theater room, and full bathroom with exhaust ventilation.',
+      },
+      {
+        title: 'Dual EV Charging Setup with Smart Load Management',
+        description:
+          'Installed two 50A circuits with dynamic power sharing to allow two electric vehicles to charge overnight safely on the home existing 200-amp service.',
+      },
+      {
+        title: 'Lakefront Backyard Hot Tub 50A GFCI Disconnect',
+        description:
+          'Ran underground conduit from the main panel around the foundation to an exterior weatherproof disconnect box powering a 50-amp outdoor hot tub.',
+      },
+    ],
+    utilityInfo: {
+      powerCompany: 'Rocky Mountain Power',
+      permitsOffice: 'City of Saratoga Springs Building Division',
+      notes:
+        'We pull all electrical permits with Saratoga Springs City and schedule all required rough and final inspections.',
+    },
+    faqs: [
+      {
+        q: 'Do you service Saratoga Springs from American Fork?',
+        a: 'Yes. Saratoga Springs is directly accessible via Pioneer Crossing or SR-73, just 10 to 15 minutes from our American Fork headquarters.',
+      },
+      {
+        q: 'Can my Saratoga Springs home handle a hot tub and an EV charger on a 200A panel?',
+        a: 'In most cases, yes! We perform an NEC Article 220 load calculation to verify your panel capacity and install sub-panels or energy management devices if needed.',
+      },
+      {
+        q: 'Do you pull permits for basement wiring in Saratoga Springs?',
+        a: 'Yes. We handle the entire city permitting process, ensuring your finished basement is fully code-compliant and safely inspected.',
+      },
+    ],
+    metaTitle: 'Electrician in Saratoga Springs, UT | EV Chargers & Basements | All Wired',
+    metaDescription:
+      'Licensed electrician serving Saratoga Springs, UT. Expert basement wiring, Level 2 EV chargers, hot tub disconnects, and panel upgrades. Call (801) 800-2828.',
   },
   {
     slug: 'orem-ut',
@@ -802,22 +1128,53 @@ export const LOCATIONS: LocationInfo[] = [
     county: 'Utah County',
     short: 'Orem',
     description:
-      'All Wired provides electrical repair, panel upgrades, EV charger installation, and remodel electrical services to Orem, UT. As a Utah County electrician based in American Fork, we are nearby and ready to help.',
+      'All Wired serves Orem, UT with residential and commercial electrical repair, 200-amp panel upgrades, rental property code inspections, and EV charger installations. Dependable, licensed electrical services for Utah’s Family City.',
     context:
-      'Orem is one of the largest cities in Utah County, with a wide range of home styles and commercial properties. Many Orem homeowners are upgrading panels and adding EV chargers to keep up with modern electrical demands.',
-    faqs: [
+      'Orem is one of Utah County’s core communities, home to Utah Valley University and a dense residential population. From mid-century homes near State Street and Center Street to modern developments on the east bench, Orem properties frequently require panel upgrades, rewiring, and modern electrical safety updates.',
+    housingProfile:
+      'Orem features a substantial number of homes constructed between the 1950s and 1980s. Many of these properties have been converted into student rentals or secondary apartments, placing heavy demands on older 100A electrical services.',
+    challenges: [
+      'Aging 100-amp electrical panels requiring heavy-ups to 200 amps for modern appliance loads',
+      'Rental property electrical safety audits, GFCI/AFCI upgrades, and smoke detector hardwiring',
+      'Kitchen and bathroom remodel rewiring in established mid-century brick homes',
+      'Commercial electrical maintenance for retail and office facilities along University Parkway',
+    ],
+    projects: [
       {
-        q: 'Do you serve Orem, Utah?',
-        a: 'Yes. Orem is within our Utah County service area. Call (801) 800-2828 to confirm availability for your specific location.',
+        title: '200A Service Heavy-Up & Meter Upgrade off Center Street',
+        description:
+          'Replaced an obsolete 100A panel with a 200A main service panel, coordinated meter reconnect with Rocky Mountain Power, and passed City of Orem electrical inspection.',
       },
       {
-        q: 'Can you install an EV charger in Orem?',
-        a: 'Yes. We install Level 2 EV chargers for Orem homeowners and businesses, including any panel upgrades needed.',
+        title: 'Student Housing Electrical Safety Upgrade near UVU',
+        description:
+          'Installed interconnected hardwired smoke/CO detectors, replaced two-prong outlets with tamper-resistant GFCI receptacles, and labeled all panel circuits.',
+      },
+      {
+        title: 'Commercial Office LED Lighting Retrofit on State Street',
+        description:
+          'Retrofit 60 fluorescent troffers with energy-saving flat-panel LED lights on occupancy sensor controls.',
       },
     ],
-    metaTitle: 'Electrician in Orem, UT | All Wired',
+    utilityInfo: {
+      powerCompany: 'Rocky Mountain Power',
+      permitsOffice: 'City of Orem Development Services / Building Division',
+      notes:
+        'We pull permits with City of Orem and coordinate all utility disconnects with Rocky Mountain Power.',
+    },
+    faqs: [
+      {
+        q: 'Do you service residential and rental properties in Orem?',
+        a: 'Yes. We work with homeowners, landlords, and property managers across Orem to perform panel upgrades, safety inspections, and tenant improvement wiring.',
+      },
+      {
+        q: 'How do I upgrade from 100A to 200A in Orem?',
+        a: 'We handle everything: load calculations, city permits, Rocky Mountain Power meter drop, panel replacement, and final city inspection.',
+      },
+    ],
+    metaTitle: 'Electrician in Orem, UT | Panel Upgrades & Repairs | All Wired',
     metaDescription:
-      'Electrician serving Orem, UT with repairs, panel upgrades, EV chargers, and remodel electrical work. Licensed and experienced. Call (801) 800-2828.',
+      'Licensed electrician serving Orem, UT. 200-amp panel upgrades, rental safety inspections, EV chargers, and remodel rewiring. Call (801) 800-2828.',
   },
   {
     slug: 'provo-ut',
@@ -826,22 +1183,53 @@ export const LOCATIONS: LocationInfo[] = [
     county: 'Utah County',
     short: 'Provo',
     description:
-      'All Wired serves Provo, UT with electrical repair, panel upgrades, EV charger installation, and commercial electrical services. From our American Fork base, we help Provo homeowners and businesses with their electrical needs.',
+      'Licensed master electrician serving Provo, UT. From historic home rewiring in the Tree Streets to commercial electrical installations near Brigham Young University, All Wired delivers trusted electrical expertise across Provo.',
     context:
-      'Provo is the largest city in Utah County and has a diverse mix of older homes, new construction, and commercial properties. Many older Provo homes benefit from panel upgrades and wiring updates for safety and capacity.',
-    faqs: [
+      'As the county seat and home to BYU, Provo has a vibrant mix of historic architecture, multi-family rental units, and modern tech centers. Historic homes near downtown feature unique architectural charm alongside vintage wiring that requires careful, respectful remediation.',
+    housingProfile:
+      'Provo contains some of Utah County’s oldest homes, including historic Victorians and 1920s cottages with knob-and-tube wiring, cloth insulation, and ungrounded circuits. Newer areas like Grandview and the East Bench feature modern custom homes.',
+    challenges: [
+      'Historic knob-and-tube and ungrounded wiring replacement without damaging lath and plaster walls',
+      'Multi-meter service upgrades for duplexes and rental student housing',
+      'Upgrading outdated fuse boxes to modern circuit breaker panels with AFCI protection',
+      'Commercial wiring for downtown restaurants, offices, and retail spaces',
+    ],
+    projects: [
       {
-        q: 'Do you serve Provo, Utah?',
-        a: 'Yes. Provo is within our Utah County service area. Call (801) 800-2828 to confirm availability for your project.',
+        title: 'Knob-and-Tube Remediation in Historic Tree Streets Home',
+        description:
+          'Carefully decommissioned active knob-and-tube circuits, fished modern grounded Romex through wall cavities, and installed AFCI breakers while preserving historic plaster.',
       },
       {
-        q: 'Can you do commercial electrical work in Provo?',
-        a: 'Yes. All Wired handles commercial wiring, panel upgrades, and EV charger installation for Provo businesses.',
+        title: 'Duplex Dual 100A to 200A Service Upgrade near BYU',
+        description:
+          'Installed a dual-meter base, two new 200A service panels, and separate sub-metering for landlord and tenant circuits.',
+      },
+      {
+        title: 'Downtown Provo Restaurant Kitchen Dedicated Circuits',
+        description:
+          'Wired dedicated commercial 208V 3-phase circuits for commercial convection ovens, walk-in coolers, and GFCI dishwashing stations.',
       },
     ],
-    metaTitle: 'Electrician in Provo, UT | All Wired',
+    utilityInfo: {
+      powerCompany: 'Provo Power (Municipal Electric Utility)',
+      permitsOffice: 'City of Provo Community Development / Building Division',
+      notes:
+        'Provo operates its own municipal utility, Provo Power. We work directly with Provo Power engineering for meter disconnects and service upgrades.',
+    },
+    faqs: [
+      {
+        q: 'Do you work with Provo Power?',
+        a: 'Yes. We coordinate directly with Provo Power for all residential and commercial service upgrades and meter changes.',
+      },
+      {
+        q: 'Can you replace knob-and-tube wiring in older Provo homes?',
+        a: 'Yes. We specialize in minimally invasive rewiring, fishing new cables without tearing down historical plaster and lath.',
+      },
+    ],
+    metaTitle: 'Electrician in Provo, UT | Historic Rewiring & Panels | All Wired',
     metaDescription:
-      'Electrician serving Provo, UT with residential and commercial electrical services, panel upgrades, and EV chargers. Licensed and experienced. Call (801) 800-2828.',
+      'Licensed electrician serving Provo, UT. Historic home rewiring, 200A panel upgrades, EV chargers, and commercial electrical work. Call (801) 800-2828.',
   },
   {
     slug: 'draper-ut',
@@ -850,22 +1238,53 @@ export const LOCATIONS: LocationInfo[] = [
     county: 'Salt Lake County',
     short: 'Draper',
     description:
-      'All Wired provides electrical services to Draper, UT, including repairs, panel upgrades, EV charger installation, and remodel electrical work. Call to confirm service availability for your specific area.',
+      'Licensed electrical contractor serving Draper, UT and the Point of the Mountain. All Wired provides high-capacity 400A panel upgrades, whole-home standby generators, EV chargers, and luxury home electrical services.',
     context:
-      'Draper sits at the north end of the Salt Lake Valley, bordering Utah County. With a mix of established and newer homes, many Draper residents are adding EV chargers and upgrading electrical panels to handle modern loads.',
-    faqs: [
+      'Straddling the border between Utah County and Salt Lake County, Draper includes mountain-bench estates in Corner Canyon and SunCrest, along with corporate tech parks along I-15. Draper properties face high winds and winter snowstorms, making electrical resilience a top priority.',
+    housingProfile:
+      'Draper consists predominantly of high-end custom homes and expansive subdivisions built over the past 25 years. These luxury homes feature substantial square footage, dual AC systems, finished walkout basements, and multi-vehicle garages.',
+    challenges: [
+      'High total electrical load requiring 400A service heavy-ups (dual 200A panels)',
+      'SunCrest mountain weather causing power interruptions requiring standby generators',
+      'Multiple EV charging stations for tech commuter households',
+      'Architectural outdoor and landscape lighting on hillside properties',
+    ],
+    projects: [
       {
-        q: 'Do you serve Draper, Utah?',
-        a: 'Draper is at the edge of our service area. Call (801) 800-2828 to confirm availability for your specific location before scheduling.',
+        title: 'SunCrest Automatic 24kW Standby Generator Installation',
+        description:
+          'Poured equipment pad and installed a 200A automatic transfer switch connected to a 24kW Generac natural gas generator for winter grid protection.',
       },
       {
-        q: 'Can you install an EV charger in Draper?',
-        a: 'Yes, subject to availability. We install Level 2 EV chargers and handle any panel upgrades needed. Call to discuss.',
+        title: '400-Amp Estate Service Upgrade in Corner Canyon',
+        description:
+          'Upgraded main service to 400 amps with dual 200A panels to support a heated swimming pool, dual EV chargers, and 3 heat pump systems.',
+      },
+      {
+        title: 'Hillside Architectural Landscape Lighting System',
+        description:
+          'Installed low-voltage LED pathway, retaining wall step lights, and tree uplights with smart astronomical timers.',
       },
     ],
-    metaTitle: 'Electrician in Draper, UT | All Wired',
+    utilityInfo: {
+      powerCompany: 'Rocky Mountain Power',
+      permitsOffice: 'City of Draper Building Division',
+      notes:
+        'We pull permits directly through Draper City and coordinate Rocky Mountain Power service heavy-ups.',
+    },
+    faqs: [
+      {
+        q: 'Do you serve SunCrest and Corner Canyon in Draper?',
+        a: 'Yes. We frequently work in SunCrest and throughout Draper, specializing in backup generators, panel heavy-ups, and EV chargers.',
+      },
+      {
+        q: 'Can you upgrade my Draper home to 400A service?',
+        a: 'Yes. We handle complete 400A service heavy-ups including utility coordination, dual panels, and city inspection sign-offs.',
+      },
+    ],
+    metaTitle: 'Electrician in Draper, UT | 400A Panels & Generators | All Wired',
     metaDescription:
-      'Electrician serving Draper, UT with repairs, panel upgrades, EV chargers, and remodel electrical work. Licensed and experienced. Call (801) 800-2828.',
+      'Licensed electrician serving Draper, UT. 400-amp service upgrades, automatic backup generators, EV charger installation, and luxury wiring. Call (801) 800-2828.',
   },
 ];
 
