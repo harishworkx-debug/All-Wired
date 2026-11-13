@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Search,
   Award,
+  MapPin,
 } from 'lucide-react';
 import Seo from '@/components/Seo';
 import Reveal from '@/components/Reveal';
@@ -20,7 +21,14 @@ import CallButton from '@/components/CallButton';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaSection from '@/components/CtaSection';
 import ServiceAreaLinks from '@/components/ServiceAreaLinks';
-import { BUSINESS, SERVICES, CORE_SERVICES } from '@/data/business';
+import {
+  BUSINESS,
+  SERVICES,
+  CORE_SERVICES,
+  LOCATIONS,
+  coreServiceLocationUrl,
+  serviceLocationUrl,
+} from '@/data/business';
 import { breadcrumbSchema, localBusinessSchema } from '@/lib/schema';
 
 const ICONS: Record<string, typeof Wrench> = {
@@ -109,10 +117,10 @@ export default function ServicesOverviewPage() {
               Core Electrical Pillars
             </span>
             <h2 className="mt-2 font-display text-2xl font-bold text-navy-900 sm:text-3xl text-balance">
-              Primary Electrical Solutions for Utah Homeowners
+              Primary Electrical Solutions in American Fork & Utah County
             </h2>
             <p className="mt-3 text-base text-navy-600">
-              Our 5 main service pillars cover the most essential power, safety, and modern convenience upgrades for your property.
+              Our 5 main service pillars cover the most essential power, safety, and modern convenience upgrades for American Fork, Lehi, and Utah County properties.
             </p>
           </Reveal>
 
@@ -121,14 +129,11 @@ export default function ServicesOverviewPage() {
               const Icon = ICONS[cs.icon] ?? Wrench;
               return (
                 <Reveal key={cs.slug} delay={i * 70}>
-                  <Link
-                    to={`/${cs.slug}`}
-                    className="card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1"
-                  >
-                    <div className="relative h-48 overflow-hidden">
+                  <div className="card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1">
+                    <Link to={`/${cs.slug}`} className="relative block h-48 overflow-hidden">
                       <img
                         src={cs.image}
-                        alt={cs.imageAlt}
+                        alt={`${cs.name} in American Fork, UT — ${cs.imageAlt}`}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
@@ -136,22 +141,50 @@ export default function ServicesOverviewPage() {
                       <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-400 shadow-lg">
                         <Icon className="h-5.5 w-5.5 text-navy-900" aria-hidden="true" />
                       </span>
-                    </div>
+                      <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-navy-900/80 px-2.5 py-1 text-[11px] font-medium text-amber-300 backdrop-blur-sm">
+                        <MapPin className="h-3 w-3 text-amber-400" aria-hidden="true" />
+                        American Fork & Utah County
+                      </span>
+                    </Link>
                     <div className="flex flex-1 flex-col p-6">
-                      <h3 className="font-display text-xl font-bold text-navy-900 transition-colors group-hover:text-electric-600">
-                        {cs.name}
-                      </h3>
+                      <Link to={`/${cs.slug}`}>
+                        <h3 className="font-display text-xl font-bold text-navy-900 transition-colors group-hover:text-electric-600">
+                          {cs.name} in American Fork, UT
+                        </h3>
+                      </Link>
                       <p className="mt-2 text-sm leading-relaxed text-navy-600 flex-1">
                         {cs.tagline}
                       </p>
-                      <div className="mt-5 flex items-center justify-between border-t border-navy-100 pt-4">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-electric-600 group-hover:text-electric-700">
-                          {CORE_SERVICE_ANCHORS[cs.slug] || cs.name}
+
+                      {/* City Service Links */}
+                      <div className="mt-4 border-t border-navy-100 pt-3">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-navy-500">
+                          Available in Cities:
+                        </p>
+                        <div className="mt-1.5 flex flex-wrap gap-1.5">
+                          {LOCATIONS.slice(0, 4).map((loc) => (
+                            <Link
+                              key={loc.slug}
+                              to={coreServiceLocationUrl(cs.slug, loc.slug)}
+                              className="rounded-md bg-navy-50 px-2 py-0.5 text-xs font-medium text-navy-700 transition-colors hover:bg-electric-50 hover:text-electric-700"
+                            >
+                              {loc.short}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="mt-4 flex items-center justify-between border-t border-navy-100 pt-3">
+                        <Link
+                          to={`/${cs.slug}`}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-electric-600 hover:text-electric-700"
+                        >
+                          {CORE_SERVICE_ANCHORS[cs.slug] || `${cs.name} in American Fork`}
                           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                        </span>
+                        </Link>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </Reveal>
               );
             })}
@@ -167,10 +200,10 @@ export default function ServicesOverviewPage() {
               Specialized Service Catalog
             </span>
             <h2 className="mt-2 font-display text-2xl font-bold text-navy-900 sm:text-3xl text-balance">
-              Detailed Electrical Installation & Repair Options
+              Detailed Electrical Installation & Repair Options in American Fork, UT
             </h2>
             <p className="mt-3 text-base text-navy-600">
-              Browse our individual service capabilities with pricing factors, common issues, and step-by-step processes.
+              Browse our individual service capabilities with pricing factors, common issues, and step-by-step processes for Utah County homeowners.
             </p>
           </Reveal>
 
@@ -179,14 +212,11 @@ export default function ServicesOverviewPage() {
               const Icon = ICONS[s.icon] ?? Wrench;
               return (
                 <Reveal key={s.slug} delay={i * 60}>
-                  <Link
-                    to={`/services/${s.slug}`}
-                    className="card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1"
-                  >
-                    <div className="relative h-44 overflow-hidden">
+                  <div className="card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1">
+                    <Link to={`/services/${s.slug}`} className="relative block h-44 overflow-hidden">
                       <img
                         src={s.image}
-                        alt={s.imageAlt}
+                        alt={`${s.name} in American Fork, UT — ${s.imageAlt}`}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
@@ -194,11 +224,17 @@ export default function ServicesOverviewPage() {
                       <span className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-xl bg-amber-400 shadow-md">
                         <Icon className="h-5 w-5 text-navy-900" aria-hidden="true" />
                       </span>
-                    </div>
+                      <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-navy-900/80 px-2.5 py-1 text-[11px] font-medium text-amber-300 backdrop-blur-sm">
+                        <MapPin className="h-3 w-3 text-amber-400" aria-hidden="true" />
+                        American Fork, UT
+                      </span>
+                    </Link>
                     <div className="flex flex-1 flex-col p-6">
-                      <h3 className="font-display text-lg font-bold text-navy-900 transition-colors group-hover:text-electric-600">
-                        {s.name}
-                      </h3>
+                      <Link to={`/services/${s.slug}`}>
+                        <h3 className="font-display text-lg font-bold text-navy-900 transition-colors group-hover:text-electric-600">
+                          {s.name} in American Fork, UT
+                        </h3>
+                      </Link>
                       <p className="mt-2 text-xs sm:text-sm leading-relaxed text-navy-600 flex-1">
                         {s.description}
                       </p>
@@ -212,14 +248,36 @@ export default function ServicesOverviewPage() {
                           </span>
                         ))}
                       </div>
-                      <div className="mt-5 flex items-center justify-between border-t border-navy-100 pt-4">
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-electric-600 group-hover:text-electric-700">
-                          View Service Details
+
+                      {/* City Links */}
+                      <div className="mt-4 border-t border-navy-100 pt-3">
+                        <p className="text-[11px] font-semibold uppercase tracking-wider text-navy-500">
+                          Locations Served:
+                        </p>
+                        <div className="mt-1.5 flex flex-wrap gap-1.5">
+                          {LOCATIONS.slice(0, 3).map((loc) => (
+                            <Link
+                              key={loc.slug}
+                              to={serviceLocationUrl(s.slug, loc.slug)}
+                              className="rounded-md bg-navy-50 px-2 py-0.5 text-xs font-medium text-navy-700 transition-colors hover:bg-electric-50 hover:text-electric-700"
+                            >
+                              {loc.short}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="mt-4 flex items-center justify-between border-t border-navy-100 pt-3">
+                        <Link
+                          to={`/services/${s.slug}`}
+                          className="inline-flex items-center gap-1 text-xs font-semibold text-electric-600 hover:text-electric-700"
+                        >
+                          View {s.name} Details
                           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                        </span>
+                        </Link>
                       </div>
                     </div>
-                  </Link>
+                  </div>
                 </Reveal>
               );
             })}
