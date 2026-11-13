@@ -28,7 +28,8 @@ export const BUSINESS = {
     state: 'UT',
     expires: '11/30/2026',
   },
-  experience: 'Over 30 years of experience in the electrical industry',
+  experience: 'Over 40 years of experience in the electrical industry',
+  yearsExperience: '40+',
   rating: '5.0',
   reviewCount: 4,
   reviewSource: 'HomeAdvisor',
@@ -870,6 +871,541 @@ export const LOCATIONS: LocationInfo[] = [
 
 export function getService(slug: string): ServiceInfo | undefined {
   return SERVICES.find((s) => s.slug === slug);
+}
+
+export type CoreServiceSlug =
+  | 'electrical-repairs-and-upgrades'
+  | 'wiring-and-installations'
+  | 'lighting-solutions'
+  | 'generators-and-backup-power'
+  | 'ev-chargers-and-modern-power';
+
+export interface CoreServiceSection {
+  h2: string;
+  lead?: string;
+  body: string[];
+  points?: string[];
+}
+
+export interface CoreServiceInfo {
+  slug: CoreServiceSlug;
+  name: string;
+  shortName: string;
+  tagline: string;
+  seoTitle: string;
+  metaDescription: string;
+  h1: string;
+  primaryKeyword: string;
+  secondaryKeywords: string[];
+  icon: string;
+  image: string;
+  imageAlt: string;
+  sections: CoreServiceSection[];
+  faqs: { q: string; a: string }[];
+}
+
+export const CORE_SERVICES: CoreServiceInfo[] = [
+  {
+    slug: 'electrical-repairs-and-upgrades',
+    name: 'Electrical Repairs and Upgrades',
+    shortName: 'Repairs & Upgrades',
+    tagline: 'Reliable troubleshooting, breaker repairs, panel replacements, and safety upgrades in American Fork & Lehi',
+    seoTitle: 'Electrical Repair & Panel Upgrades in American Fork, UT | All Wired',
+    metaDescription:
+      'Professional electrical repair and panel upgrade services in American Fork, UT. Troubleshooting, circuit breaker repairs, panel replacements, and inspections. Call (801) 800-2828.',
+    h1: 'Electrical Repair and Panel Upgrade Services in American Fork, UT',
+    primaryKeyword: 'Electrical repair American Fork UT',
+    secondaryKeywords: [
+      'Electrical troubleshooting American Fork',
+      'Circuit breaker repair American Fork',
+      'Electrical panel upgrade American Fork',
+      'Home electrical inspection American Fork',
+      'Outlet and switch repair American Fork',
+      'Residential electrician Utah County',
+    ],
+    icon: 'Wrench',
+    image: 'https://images.pexels.com/photos/20500461/pexels-photo-20500461.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600',
+    imageAlt: 'Licensed electrician diagnosing and repairing electrical panel in American Fork UT',
+    sections: [
+      {
+        h2: 'Residential Electrical Repair Services',
+        lead: 'Prompt, dependable residential electrical repairs protecting your home and family.',
+        body: [
+          'Electrical issues in a home are more than just inconvenient—they pose real fire hazards and safety concerns. All Wired provides complete residential electrical repair services throughout American Fork, Lehi, and surrounding Utah County neighborhoods.',
+          'Whether your lights are flickering when appliances kick on, outlets feel warm to the touch, or circuit breakers trip repeatedly, our licensed technicians pinpoint the root cause and execute code-compliant, permanent repairs.',
+        ],
+        points: [
+          'Flickering, dimming, or buzzing light fixtures',
+          'Dead outlets and non-responsive wall switches',
+          'Breakers that trip instantly or will not reset',
+          'Burning plastic smells or scorching around outlets',
+          'Outdated two-prong ungrounded receptacles',
+        ],
+      },
+      {
+        h2: 'Electrical Troubleshooting and Diagnosis',
+        lead: 'Systematic diagnosis using professional multimeters and circuit tracing equipment.',
+        body: [
+          'Electrical troubleshooting requires deep experience and rigorous safety protocols. Guessing or taking shortcuts with electrical wiring puts property and lives at risk. With over 40 years of electrical experience, All Wired follows a methodical diagnostic process.',
+          'We inspect your service drop, panel connections, neutral buses, and individual branch circuits. We isolate hidden shorts, loose neutral wires, open grounds, and overloaded phases so you receive a clear, honest explanation before any repair begins.',
+        ],
+      },
+      {
+        h2: 'Circuit Breaker and Electrical Panel Repairs',
+        lead: 'Restoring panel safety, replacing damaged breakers, and eliminating hot spots.',
+        body: [
+          'Your circuit breaker panel is the central nervous system of your home’s electrical system. Over time, breaker bus bars can corrode, screw terminals loosen from thermal expansion, and breakers fail internally.',
+          'We repair damaged panel components, replace worn-out single-pole and double-pole breakers, install modern AFCI (Arc Fault Circuit Interrupter) and GFCI breakers, and balance circuit loads across both hot legs to prevent overheating.',
+        ],
+      },
+      {
+        h2: 'Electrical Panel Replacement and Upgrades',
+        lead: 'Upgrade from outdated 60A or 100A panels to modern 200A and 400A heavy-up services.',
+        body: [
+          'Many established homes in American Fork and Lehi were built when household electrical demand was a fraction of what it is today. If your home still relies on an outdated 100-amp service—or worse, a dangerous Federal Pacific, Zinsco, or split-bus fuse box—an electrical panel upgrade is critical.',
+          'When adding central air conditioning, a heat pump, hot tub, finished basement, or an electric vehicle charger, your panel must have the physical space and amperage capacity to handle continuous loads safely. We handle the entire panel replacement process: load calculations, city permitting, Rocky Mountain Power utility disconnect/reconnect coordination, and final electrical inspection.',
+        ],
+        points: [
+          'Full 200-amp and 400-amp service heavy-ups',
+          'Replacement of hazardous Federal Pacific and Zinsco panels',
+          'Installation of whole-home surge protection at the panel',
+          'New copper grounding rods and bonded water pipe grounding',
+        ],
+      },
+      {
+        h2: 'Outlet, Switch and Wiring Repairs',
+        lead: 'Code-compliant replacement of faulty receptacles, switches, and damaged branch wiring.',
+        body: [
+          'Modern building codes require GFCI (Ground Fault Circuit Interrupter) outlets in all wet and exterior locations—kitchens, bathrooms, garages, laundry rooms, and outdoor receptacles. If your outlets lack GFCI protection or your switches spark, we replace them with commercial-grade, tamper-resistant devices.',
+          'We also replace worn aluminum-to-copper connections, rewire back-stabbed outlet terminals that have loosened, and install dedicated circuits for high-draw kitchen and workshop appliances.',
+        ],
+      },
+      {
+        h2: 'Electrical Safety Inspections',
+        lead: 'Comprehensive whole-home safety inspections for home buyers, sellers, and remodelers.',
+        body: [
+          'Planning a remodel, purchasing an older home, or experiencing mysterious electrical anomalies? Our thorough electrical safety inspection examines every vital component of your system: panel capacity, wire sizing, grounding integrity, smoke/CO detector circuits, and compliance with the National Electrical Code (NEC).',
+          'You receive a comprehensive overview of findings and clear, prioritized recommendations with upfront pricing.',
+        ],
+      },
+      {
+        h2: 'Electrical Repair Services in American Fork and Lehi',
+        lead: 'Fast, local service from master electricians living and working right here in Utah County.',
+        body: [
+          'All Wired is based right in American Fork, UT. When you call (801) 800-2828, you speak directly with an experienced electrical contractor—not an out-of-state call center. We provide same-day response for urgent repairs and flexible scheduling for panel upgrades throughout American Fork, Lehi, Pleasant Grove, and neighboring communities.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'How do I know if my electrical panel needs an upgrade?',
+        a: 'Warning signs include circuit breakers that trip frequently, flickering lights when appliances turn on, burning smells around the panel box, panels that feel warm, lack of physical breaker slots, or having a 100-amp or older panel when adding an EV charger, AC, or basement finish.',
+      },
+      {
+        q: 'Do you handle the city permits and utility coordination for panel upgrades?',
+        a: 'Yes. All Wired pulls all required electrical permits with American Fork or your local municipality, coordinates with Rocky Mountain Power for meter disconnect/reconnect, and schedules the final city electrical inspection.',
+      },
+      {
+        q: 'What should I do if an outlet stops working or sparks?',
+        a: 'Turn off the circuit breaker controlling that outlet immediately to eliminate fire risk. Do not attempt to use the outlet, and call All Wired at (801) 800-2828 for a licensed inspection and repair.',
+      },
+      {
+        q: 'Do you offer emergency electrical repair service in American Fork and Lehi?',
+        a: 'Yes. We offer emergency electrical repair services for urgent hazards including buzzing breaker panels, power loss to critical circuits, and exposed or sparking wiring.',
+      },
+    ],
+  },
+  {
+    slug: 'wiring-and-installations',
+    name: 'Wiring and Installations',
+    shortName: 'Wiring & Installations',
+    tagline: 'New construction wiring, basement finishing, dedicated circuits, and ceiling fan installations',
+    seoTitle: 'Electrical Wiring & Installation in American Fork, UT | All Wired',
+    metaDescription:
+      'Complete residential and commercial electrical wiring in American Fork, UT. New construction, remodel, basement wiring, dedicated circuits, and ceiling fans. Call (801) 800-2828.',
+    h1: 'Professional Electrical Wiring and Installation in American Fork, Utah',
+    primaryKeyword: 'Electrical wiring American Fork UT',
+    secondaryKeywords: [
+      'Home electrical wiring American Fork',
+      'New construction electrical wiring Utah County',
+      'Basement electrical wiring American Fork',
+      'Dedicated circuit installation American Fork',
+      'Ceiling fan installation American Fork',
+      'Commercial electrical wiring American Fork',
+    ],
+    icon: 'Plug',
+    image: 'https://images.pexels.com/photos/8488029/pexels-photo-8488029.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600',
+    imageAlt: 'Electrician installing residential electrical wiring and junction boxes in American Fork UT',
+    sections: [
+      {
+        h2: 'Residential Electrical Wiring Services',
+        lead: 'Safe, code-certified wiring for new builds, additions, remodels, and home upgrades.',
+        body: [
+          'High quality electrical wiring is the backbone of a safe and reliable home. From running new Romex circuits to replacing outdated cloth-insulated wiring, All Wired provides meticulous residential wiring services throughout American Fork and Utah County.',
+          'Every wire we pull is sized correctly for breaker amperage, neatly secured, and terminated inside fire-resistant junction boxes following strict National Electrical Code (NEC) guidelines.',
+        ],
+      },
+      {
+        h2: 'New Construction Electrical Wiring',
+        lead: 'Complete electrical rough-in and finish wiring for custom homes and new builds.',
+        body: [
+          'Building a new home in Utah County requires an electrical contractor who understands structural load planning, modern lighting design, and utility code compliance. All Wired delivers turn-key new construction electrical wiring.',
+          'From the initial underground conduit and meter base to whole-house rough-in wiring, panel installation, and final fixture trim-out, we coordinate seamlessly with general contractors and homeowners.',
+        ],
+      },
+      {
+        h2: 'Home Remodeling and Basement Wiring',
+        lead: 'Turn unfinished basements and outdated spaces into fully wired, safe living areas.',
+        body: [
+          'Finishing a basement or remodeling a kitchen requires significant electrical planning. Kitchens require multiple dedicated small-appliance branch circuits, island receptacles, and GFCI/AFCI protection. Finished basements require sub-panels, bedroom arc-fault circuits, bathroom exhaust circuits, and home theater wiring.',
+          'We evaluate your main panel capacity, install sub-panels when appropriate, pull clean branch circuits, and make sure your finished space passes every city building inspection on the first visit.',
+        ],
+      },
+      {
+        h2: 'Dedicated Circuit Installation',
+        lead: 'Prevent nuisance breaker trips by installing dedicated lines for high-draw appliances.',
+        body: [
+          'Modern appliances draw substantial electrical current. Sharing circuits between high-draw appliances leads to persistent breaker tripping and dangerous heat buildup. We install dedicated 120V and 240V circuits designed specifically for your equipment.',
+        ],
+        points: [
+          'Electric vehicle Level 2 chargers (40A - 60A 240V)',
+          'Central AC units, mini-splits, and heat pumps',
+          'Hot tubs, swim spas, and saunas (50A GFCI protected)',
+          'Electric ranges, ovens, and induction cooktops',
+          'Microwave ovens, refrigerators, and deep freezers',
+          'Workshop air compressors, welders, and power tools',
+        ],
+      },
+      {
+        h2: 'Ceiling Fan Wiring and Installation',
+        lead: 'Secure, wobble-free ceiling fan mounting with proper fan-rated support boxes.',
+        body: [
+          'Ceiling fans cannot be mounted to standard plastic or lightweight light fixture boxes. Building code requires UL-listed fan-rated metal boxes securely braced to ceiling joists to support dynamic rotating weight.',
+          'All Wired installs proper fan boxes, runs new 3-wire Romex cables for independent wall switch control of light and fan speeds, and balances fan blades for silent, reliable cooling.',
+        ],
+      },
+      {
+        h2: 'Commercial Electrical Installation',
+        lead: 'Power, lighting, and tenant improvements for retail, office, and light commercial spaces.',
+        body: [
+          'Beyond residential work, All Wired handles commercial electrical installations in American Fork, Lehi, and Lindon. We install commercial conduit (EMT), 3-phase power distribution, dedicated machinery circuits, tenant buildouts, and commercial LED retrofit packages.',
+        ],
+      },
+      {
+        h2: 'Our Electrical Installation Process',
+        lead: 'Transparent communication, precise estimates, and zero-compromise safety.',
+        body: [
+          '1. Consultation & Assessment: We discuss your project goals, inspect existing wiring and panel capacity, and provide an upfront, transparent estimate.',
+          '2. Code-Compliant Rough-In: We pull high-grade copper wiring, install UL-listed boxes, and secure runs cleanly through studs and joists.',
+          '3. Permitting & City Inspections: We handle municipal permits and schedule rough and final inspections.',
+          '4. Trim-Out & Testing: We install all outlets, switches, and fixtures, testing every single circuit for polarity, ground fault trip time, and continuous load stability.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'What size dedicated circuit do I need for a hot tub?',
+        a: 'Most outdoor hot tubs require a 50-amp or 60-amp 240-volt dedicated circuit with an outdoor GFCI disconnect box mounted within sight of the tub (at least 5 feet away from the water edge according to NEC).',
+      },
+      {
+        q: 'Can you wire an unfinished basement to an existing electrical panel?',
+        a: 'If your existing panel has sufficient breaker slots and amperage capacity, we can feed basement circuits directly from it. If your panel is full, we install a sub-panel or recommend an electrical panel upgrade.',
+      },
+      {
+        q: 'Why does my microwave or vacuum trip the breaker in the living room?',
+        a: 'This happens when multiple outlets share a single 15-amp circuit. High-draw appliances should be on dedicated 20-amp circuits to prevent overloads and tripped breakers.',
+      },
+    ],
+  },
+  {
+    slug: 'lighting-solutions',
+    name: 'Lighting Solutions',
+    shortName: 'Lighting Solutions',
+    tagline: 'Indoor recessed canless LED lighting, chandeliers, outdoor landscape, and security illumination',
+    seoTitle: 'Lighting Installation in American Fork, UT | All Wired LLC',
+    metaDescription:
+      'Indoor and outdoor lighting installation in American Fork, UT. Recessed LED lighting, chandeliers, landscape lighting, and energy-efficient fixtures. Call (801) 800-2828.',
+    h1: 'Indoor and Outdoor Lighting Installation in American Fork, UT',
+    primaryKeyword: 'Lighting installation American Fork UT',
+    secondaryKeywords: [
+      'Indoor lighting installation American Fork',
+      'Outdoor lighting electrician American Fork',
+      'Recessed lighting installation Utah County',
+      'LED lighting upgrades American Fork',
+      'Landscape lighting installation American Fork',
+      'Ceiling light installation American Fork',
+    ],
+    icon: 'Lightbulb',
+    image: 'https://images.pexels.com/photos/4792521/pexels-photo-4792521.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600',
+    imageAlt: 'Electrician installing modern recessed LED ceiling lights in an American Fork home',
+    sections: [
+      {
+        h2: 'Residential Lighting Installation',
+        lead: 'Transform your living spaces with expertly designed ambient, task, and accent lighting.',
+        body: [
+          'Lighting sets the mood, enhances home aesthetics, and dramatically improves daily functionality. All Wired designs and installs residential lighting systems for homeowners across American Fork, Lehi, and Utah County.',
+          'Whether replacing builder-grade light fixtures or planning a complete lighting makeover for your kitchen, living room, or home office, our licensed electricians ensure proper wire sizing, junction box support, and smooth dimmer control.',
+        ],
+      },
+      {
+        h2: 'Recessed and LED Lighting Upgrades',
+        lead: 'Clean, modern, wafer-thin LED canless downlights that eliminate shadows and reduce energy bills.',
+        body: [
+          'Old can lights with hot halogen or incandescent bulbs waste energy, generate excessive heat in your ceiling, and often flicker. We install ultra-thin, direct-to-drywall canless LED recessed lights.',
+          'These sleek fixtures feature selectable color temperatures (warm 2700K to bright daylight 5000K), consume up to 85% less electricity, last 50,000+ hours, and operate smoothly with modern electronic LED dimmer switches.',
+        ],
+        points: [
+          'Kitchen island task lighting and under-cabinet LED tape lighting',
+          'Living room perimeter downlighting on smooth dimmers',
+          'Basement ceiling recessed light grid layout',
+          'Bathroom vanity illumination that eliminates harsh facial shadows',
+        ],
+      },
+      {
+        h2: 'Outdoor and Landscape Lighting',
+        lead: 'Boost curb appeal, highlight architectural details, and create welcoming outdoor living spaces.',
+        body: [
+          'Outdoor lighting extends your home’s usable living space into the evening while highlighting your property’s best landscaping features. We install durable, weatherproof exterior lighting solutions.',
+          'From low-voltage LED pathway lights and tree uplights to patio string lighting and deck step illumination, we run discreet underground conduit and install automated dusk-to-dawn astronomical timers.',
+        ],
+      },
+      {
+        h2: 'Security and Exterior Lighting',
+        lead: 'Deter intruders and increase nighttime visibility around driveways, walkways, and entryways.',
+        body: [
+          'Proper exterior lighting is one of the most effective deterrents against property crime. All Wired installs hardwired motion-activated floodlights, dusk-to-dawn wall sconces, and smart security cameras with integrated lighting.',
+          'All exterior fixtures are wired with weatherproof seals, GFCI protection, and durable die-cast aluminum housings built to withstand Utah’s harsh winter freeze-thaw cycles.',
+        ],
+      },
+      {
+        h2: 'Ceiling Light and Fixture Installation',
+        lead: 'Safe installation for heavy chandeliers, pendant lights, and high-ceiling fixtures.',
+        body: [
+          'Installing large dining room chandeliers, foyer entry lights, or two-story entryway fixtures requires specialized scaffolding and reinforced ceiling support boxes. We ensure heavy fixtures are mechanically anchored to structural ceiling framing before making safe electrical connections.',
+        ],
+      },
+      {
+        h2: 'Energy-Efficient Lighting Solutions',
+        lead: 'Save hundreds annually on electric bills with comprehensive LED retrofits and smart controls.',
+        body: [
+          'Converting your home to high-efficiency LED lighting drastically reduces electrical consumption and lowers summer cooling loads. We can also integrate smart home switches (such as Lutron Caséta) that allow you to schedule lighting, control rooms via smartphone, and create automated scenes.',
+        ],
+      },
+      {
+        h2: 'Lighting Services Across Utah County',
+        lead: 'Serving American Fork, Lehi, Pleasant Grove, Highland, Alpine, Orem, and Provo.',
+        body: [
+          'From our headquarters in American Fork, All Wired brings prompt, professional lighting installation to homes throughout Utah County. Call (801) 800-2828 to schedule a free estimate on your lighting project.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can you install recessed lighting in an existing ceiling without tearing up the drywall?',
+        a: 'Yes! Modern wafer-thin LED recessed lights do not require bulky metal housing cans. We cut precise circular openings, fish wire through joist bays, and install clean, flush-mounted fixtures with minimal to no drywall patching required.',
+      },
+      {
+        q: 'Why do my new LED light bulbs flicker or buzz when dimmed?',
+        a: 'This typically happens when old incandescent dimmer switches are used with modern LED bulbs. LED fixtures require compatible trailing-edge or electronic low-voltage (ELV) dimmers designed specifically for LED driver loads.',
+      },
+      {
+        q: 'Do you install exterior landscape lighting on timers or light sensors?',
+        a: 'Yes. We install smart timers, photocell dusk-to-dawn sensors, and Wi-Fi enabled controllers so your landscape lights turn on automatically at sunset and off at your chosen hour.',
+      },
+    ],
+  },
+  {
+    slug: 'generators-and-backup-power',
+    name: 'Generators and Backup Power',
+    shortName: 'Generators & Backup Power',
+    tagline: 'Standby generator installation, manual transfer switches, and reliable backup power solutions in American Fork',
+    seoTitle: 'Generator Installation & Backup Power in American Fork, UT',
+    metaDescription:
+      'Home backup generator installation and standby power solutions in American Fork, UT. Whole-home generators, manual and automatic transfer switches, and emergency wiring. Call (801) 800-2828.',
+    h1: 'Home Generator Installation and Backup Power in American Fork, UT',
+    primaryKeyword: 'Generator installation American Fork UT',
+    secondaryKeywords: [
+      'Home backup generator installation Utah County',
+      'Standby generator electrician American Fork',
+      'Generator electrical connection American Fork',
+      'Backup power solutions American Fork',
+      'Generator wiring installation Utah',
+    ],
+    icon: 'Zap',
+    image: 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600',
+    imageAlt: 'Whole-home standby generator and electrical transfer switch installation in American Fork UT',
+    sections: [
+      {
+        h2: 'Residential Backup Power Solutions',
+        lead: 'Protect your home, food storage, heating, and medical equipment during unexpected outages.',
+        body: [
+          'Power outages in Utah County can strike without warning—from heavy winter snowstorms and freezing temperatures to high summer winds and overloaded grids. A home backup power system ensures your family remains warm, safe, and fully powered.',
+          'All Wired specializes in residential backup power solutions in American Fork and nearby cities. Whether you need a portable generator hookup or a permanently installed whole-home standby generator, we ensure safe, seamless electrical integration.',
+        ],
+      },
+      {
+        h2: 'Standby Generator Installation',
+        lead: 'Automatic whole-home backup power that starts and transfers within seconds of an outage.',
+        body: [
+          'A permanent standby generator runs on natural gas or propane and sits outside like a central air conditioner. When utility power from Rocky Mountain Power fails, the system automatically detects the outage, starts the generator engine, and transfers electrical loads in under 15 seconds.',
+          'When utility power returns, the system automatically switches your home back to the grid and shuts the generator down. You never have to go outside in a blizzard, run extension cords, or refuel gas tanks in the dark.',
+        ],
+      },
+      {
+        h2: 'Generator Electrical Connections',
+        lead: 'Safe outdoor inlet boxes and dedicated power feeds for portable generators.',
+        body: [
+          'For homeowners utilizing portable gas or dual-fuel generators, running extension cords through open windows or doors is dangerous and lets freezing air and toxic exhaust into the home. We install code-compliant outdoor power inlet boxes.',
+          'A heavy-duty 30-amp or 50-amp outdoor generator inlet connects via heavy-gauge cable directly to your main electrical panel through an interlock kit or transfer switch, powering essential circuits directly through your home’s existing outlets and light switches.',
+        ],
+      },
+      {
+        h2: 'Transfer Switch Installation',
+        lead: 'Automatic transfer switches (ATS) and mechanical panel interlock switches.',
+        body: [
+          'A transfer switch is legally required for generator connections. It isolates your home from the utility grid, preventing deadly electrical backfeeding that can injure or kill utility line workers restoring power down the street.',
+          'All Wired installs automatic transfer switches (ATS) for whole-home standby units as well as manual mechanical interlock kits for portable generators. Both configurations guarantee your generator and the electrical grid can never be energized simultaneously.',
+        ],
+      },
+      {
+        h2: 'Electrical Safety and Generator Wiring',
+        lead: 'Code compliance, carbon monoxide safety, and proper grounding electrode systems.',
+        body: [
+          'Generator installations must comply strictly with National Electrical Code Article 702 (Optional Standby Systems) and local municipal fire safety codes. We ensure proper clearance from windows and soffits to prevent carbon monoxide intrusion, calculate continuous load capacity, and install dedicated neutral bonding systems.',
+        ],
+      },
+      {
+        h2: 'Choosing a Backup Power Solution',
+        lead: 'Portable generator hookup vs. permanent standby generator—which is right for you?',
+        body: [
+          '1. Portable Generator with Interlock Kit: Cost-effective solution. Requires manual start and cable connection during an outage. Powers essential circuits: refrigerator, freezer, furnace blower, sump pump, and key lights.',
+          '2. Whole-Home Automatic Standby Generator: Premium, hands-off reliability. Automatically starts and runs your entire house, including central air conditioning, well pumps, and kitchen appliances, even when you are away from home.',
+        ],
+      },
+      {
+        h2: 'Generator Installation in American Fork and Nearby Areas',
+        lead: 'Local master electricians serving American Fork, Lehi, Highland, Alpine, and Utah County.',
+        body: [
+          'All Wired provides transparent estimates, permit handling, and expert installation. Call (801) 800-2828 today to discuss the ideal backup power solution for your home.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Why do I need a transfer switch instead of just plugging my generator into a wall outlet?',
+        a: 'Plugging a generator directly into a wall outlet (known as backfeeding) is extremely dangerous and illegal. It sends high-voltage electricity back into utility power lines, creating deadly hazards for electrical workers. A transfer switch safely isolates your home from the grid.',
+      },
+      {
+        q: 'What size generator do I need to run my home?',
+        a: 'To run essential loads (refrigerator, furnace blower, lights, internet, and outlets), a 7,500 to 10,000-watt portable generator is usually sufficient. To run your entire home including central air conditioning and electric water heaters, a 18kW to 24kW whole-home standby generator is recommended.',
+      },
+      {
+        q: 'Can a generator power my furnace in winter?',
+        a: 'Yes! When connected via a proper transfer switch or interlock kit, your generator safely powers the furnace blower fan, ignition controls, and thermostat so your family stays warm during winter grid failures.',
+      },
+    ],
+  },
+  {
+    slug: 'ev-chargers-and-modern-power',
+    name: 'EV Chargers and Modern Power',
+    shortName: 'EV Chargers & Modern Power',
+    tagline: 'Level 2 home electric vehicle charging station installation, 240V circuits, and electrical load evaluations',
+    seoTitle: 'EV Charger Installation American Fork, UT | All Wired LLC',
+    metaDescription:
+      'Professional Level 2 home EV charger installation in American Fork, UT. 240V dedicated circuits, panel load assessments, Tesla & universal chargers. Call (801) 800-2828.',
+    h1: 'Professional Home EV Charger Installation in American Fork, UT',
+    primaryKeyword: 'EV charger installation American Fork UT',
+    secondaryKeywords: [
+      'Home EV charger installation Utah County',
+      'Level 2 EV charger installation American Fork',
+      'Electric vehicle charging station electrician',
+      'EV charging outlet installation American Fork',
+      'Residential EV charger electrician Utah',
+      '240V charger installation American Fork',
+    ],
+    icon: 'BatteryCharging',
+    image: 'https://images.pexels.com/photos/10029867/pexels-photo-10029867.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600',
+    imageAlt: 'Electrician installing a Level 2 home EV charging station on a garage wall in American Fork UT',
+    sections: [
+      {
+        h2: 'Home Electric Vehicle Charger Installation',
+        lead: 'Fast, reliable overnight charging right in your own garage or driveway in American Fork.',
+        body: [
+          'Driving an electric vehicle in Utah is convenient and economical, but relying on slow Level 1 120-volt trickle chargers (which only add 3–4 miles of range per hour) leaves your battery undercharged. All Wired installs dedicated Level 2 240-volt home charging systems.',
+          'With a professionally installed Level 2 EV charging station, your vehicle charges 5 to 8 times faster, replenishing 30 to 45 miles of range per hour so your vehicle is fully charged and ready every morning.',
+        ],
+      },
+      {
+        h2: 'Level 2 EV Charging Solutions',
+        lead: 'Universal compatibility with Tesla, Ford, Rivian, Hyundai, Chevy, BMW, and all major EV brands.',
+        body: [
+          'We install both hardwired charging stations (up to 48-amp continuous charge on a 60-amp circuit) and 240-volt NEMA 14-50 receptacles for plug-in mobile connectors.',
+          'Our licensed electricians install all premier EV charging brands, including Tesla Wall Connectors (Universal NACS & J1772), ChargePoint Home Flex, JuiceBox, Emporia, Grizzl-E, and Wallbox units.',
+        ],
+      },
+      {
+        h2: 'Electrical Panel Capacity and Load Assessment',
+        lead: 'Thorough load calculation to confirm your panel can support continuous 40A to 60A loads safely.',
+        body: [
+          'An electric vehicle charger is one of the highest continuous electrical loads in a modern home. National Electrical Code mandates that continuous loads not exceed 80% of a circuit breaker’s rating (e.g., a 48A charger requires a dedicated 60A breaker; a 40A charger requires a 50A breaker).',
+          'Before installation, All Wired performs an NEC Article 220 residential load calculation. We inspect your main service size (100A, 150A, or 200A), existing heavy appliance loads (HVAC, range, dryer), and panel space to ensure your system can support the charger without nuisance tripping or service overloads.',
+        ],
+      },
+      {
+        h2: 'Dedicated EV Charging Circuits',
+        lead: 'Heavy-gauge copper conductors, commercial GFCI protection, and durable conduit routing.',
+        body: [
+          'We pull heavy-duty copper wire (such as 6/2 or 4/3 NM-B or individual THHN conductors inside protective EMT conduit) sized strictly for your charger’s amperage. For plug-in 14-50 outlets, we use heavy-duty commercial-grade receptacles specifically engineered to handle repeated high-current thermal cycles without melting.',
+        ],
+      },
+      {
+        h2: 'EV Charger Installation Process',
+        lead: 'From consultation to city permit and final safety test in 4 straightforward steps.',
+        body: [
+          '1. Assessment: We check your panel amperage, discuss preferred mounting locations in your garage or driveway, and evaluate wire run distance.',
+          '2. Upfront Estimate: You receive a transparent quote detailing circuit installation, materials, and any necessary panel adjustments.',
+          '3. Professional Installation: We run heavy-duty conduit, install the breaker, mount the station cleanly, and torque all connections to manufacturer specifications.',
+          '4. Commissioning & Testing: We power up the station, configure Wi-Fi smart features, verify proper ground resistance, and test charging on your vehicle.',
+        ],
+      },
+      {
+        h2: 'Residential EV Charging in American Fork and Lehi',
+        lead: 'Local electricians keeping Utah County drivers charged, safe, and ready for the road.',
+        body: [
+          'Utah County is one of the fastest-growing regions for EV adoption in the Mountain West. All Wired provides rapid scheduling, municipal permit management, and expert installation throughout American Fork, Lehi, Pleasant Grove, Highland, and Draper.',
+        ],
+      },
+      {
+        h2: 'Frequently Asked Questions About EV Chargers',
+        lead: 'Answers to the most common questions about charging an electric vehicle at home.',
+        body: [
+          'See our frequently asked questions below, or call (801) 800-2828 to discuss your vehicle and home setup directly with a licensed electrician.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can my existing 100-amp electrical panel handle an EV charger?',
+        a: 'It depends on your existing home electrical loads. If your home has gas appliances (furnace, water heater, range), a 100-amp panel may have capacity for a 32A or 40A charger. However, if you have electric heating, central AC, and an electric range, an electrical panel upgrade to 200 amps is typically required.',
+      },
+      {
+        q: 'Is it better to hardwire an EV charger or use a NEMA 14-50 outlet?',
+        a: 'Hardwiring is generally recommended for modern EV chargers because it allows faster charging (up to 48 amps / 11.5 kW vs. 40 amps on an outlet), eliminates an outlet connection point that can heat up over time, and provides superior outdoor weather resistance.',
+      },
+      {
+        q: 'How fast will a Level 2 charger charge my car at home?',
+        a: 'A Level 2 home charger typically adds 30 to 45 miles of driving range per hour of charging. Most electric vehicles will charge from empty to 100% in 6 to 9 hours overnight while you sleep.',
+      },
+      {
+        q: 'Can you install an EV charger outside if I do not have a garage?',
+        a: 'Yes. We install weatherproof outdoor-rated Level 2 chargers on exterior walls or dedicated pedestals next to driveways and carports, using weather-tight conduit and GFCI protection.',
+      },
+    ],
+  },
+];
+
+export function getCoreService(slug: string): CoreServiceInfo | undefined {
+  return CORE_SERVICES.find((s) => s.slug === slug);
 }
 
 export function getLocation(slug: string): LocationInfo | undefined {

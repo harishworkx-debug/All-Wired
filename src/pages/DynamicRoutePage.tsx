@@ -1,13 +1,20 @@
 import { useParams, Navigate } from 'react-router-dom';
-import { SERVICES, getLocation, locationUrl } from '@/data/business';
+import { SERVICES, CORE_SERVICES, getLocation, locationUrl, getCoreService } from '@/data/business';
 import LocationPage from './LocationPage';
 import ServiceLocationPage from './ServiceLocationPage';
+import CoreServicePage from './CoreServicePage';
 import NotFoundPage from './NotFoundPage';
 
 export default function DynamicRoutePage() {
   const { slug } = useParams();
 
   if (!slug) return <NotFoundPage />;
+
+  // Check if it's one of the 5 core service pillar pages (e.g. /electrical-repairs-and-upgrades)
+  const coreService = getCoreService(slug);
+  if (coreService) {
+    return <CoreServicePage slug={slug} />;
+  }
 
   // Check if it's an electrician service area URL (e.g. "electrician-lindon-ut")
   if (slug.startsWith('electrician-')) {

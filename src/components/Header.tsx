@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Zap, ChevronDown } from 'lucide-react';
-import { BUSINESS, SERVICES, LOCATIONS, locationUrl } from '@/data/business';
+import { BUSINESS, SERVICES, LOCATIONS, locationUrl, CORE_SERVICES } from '@/data/business';
 import CallButton from './CallButton';
 
 export default function Header() {
@@ -83,7 +83,7 @@ export default function Header() {
                 </button>
                 {servicesOpen && (
                   <div className="absolute left-0 top-full pt-3">
-                    <div className="w-72 rounded-2xl border border-navy-100 bg-white p-2 shadow-xl shadow-navy-900/10">
+                    <div className="w-80 rounded-2xl border border-navy-100 bg-white p-2 shadow-xl shadow-navy-900/10">
                       <Link
                         to="/services"
                         className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-navy-900 hover:bg-gray-50"
@@ -91,11 +91,11 @@ export default function Header() {
                         All Electrical Services
                       </Link>
                       <div className="my-1 h-px bg-navy-100" />
-                      {SERVICES.map((s) => (
+                      {CORE_SERVICES.map((s) => (
                         <Link
                           key={s.slug}
-                          to={`/${s.slug}-american-fork-ut`}
-                          className="block rounded-lg px-3 py-2.5 text-sm text-navy-700 hover:bg-gray-50 hover:text-electric-600"
+                          to={`/${s.slug}`}
+                          className="block rounded-lg px-3 py-2 text-sm text-navy-700 hover:bg-gray-50 hover:text-electric-600 font-medium"
                         >
                           {s.name}
                         </Link>
@@ -196,14 +196,14 @@ export default function Header() {
                 <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-navy-400">
                   Services
                 </p>
-                <Link to="/services" className="block rounded-lg px-3 py-2.5 text-sm font-medium text-navy-700 hover:bg-gray-50">
+                <Link to="/services" className="block rounded-lg px-3 py-2 text-sm font-semibold text-navy-900 hover:bg-gray-50">
                   All Electrical Services
                 </Link>
-                {SERVICES.map((s) => (
+                {CORE_SERVICES.map((s) => (
                   <Link
                     key={s.slug}
-                    to={`/${s.slug}-american-fork-ut`}
-                    className="block rounded-lg px-3 py-2.5 text-sm text-navy-600 hover:bg-gray-50"
+                    to={`/${s.slug}`}
+                    className="block rounded-lg px-3 py-2 text-sm text-navy-600 hover:bg-gray-50 font-medium"
                   >
                     {s.name}
                   </Link>

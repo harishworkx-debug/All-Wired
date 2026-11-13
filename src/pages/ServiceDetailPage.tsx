@@ -10,7 +10,7 @@ import CtaSection from '@/components/CtaSection';
 import FaqList from '@/components/FaqList';
 import ServiceLinks from '@/components/ServiceLinks';
 import ServiceAreaLinks from '@/components/ServiceAreaLinks';
-import { BUSINESS, SERVICES, getService, LOCATIONS } from '@/data/business';
+import { BUSINESS, SERVICES, getService, LOCATIONS, getCoreService } from '@/data/business';
 import { serviceSchema, breadcrumbSchema } from '@/lib/schema';
 
 const ICONS: Record<string, typeof Wrench> = {
@@ -21,7 +21,11 @@ export default function ServiceDetailPage() {
   const { serviceSlug } = useParams();
   const service = serviceSlug ? getService(serviceSlug) : undefined;
 
-  if (!service) return <Navigate to="/404" replace />;
+  if (!service) {
+    const core = serviceSlug ? getCoreService(serviceSlug) : undefined;
+    if (core) return <Navigate to={`/${core.slug}`} replace />;
+    return <Navigate to="/404" replace />;
+  }
 
   const Icon = ICONS[service.icon] ?? Wrench;
   const jsonLd = [

@@ -8,6 +8,13 @@ const rootDir = path.resolve(__dirname, '..');
 
 const businessFile = fs.readFileSync(path.join(rootDir, 'src/data/business.ts'), 'utf8');
 
+// Extract core service slugs
+const coreServiceSlugMatch = businessFile.match(/export type CoreServiceSlug =([\s\S]*?);/);
+let coreServiceSlugs = [];
+if (coreServiceSlugMatch) {
+  coreServiceSlugs = [...coreServiceSlugMatch[1].matchAll(/'([^']+)'/g)].map(m => m[1]);
+}
+
 // Extract service slugs
 const serviceSlugMatch = businessFile.match(/export type ServiceSlug =([\s\S]*?);/);
 let serviceSlugs = [];
@@ -43,6 +50,11 @@ for (const page of staticPages) {
   xml += `  <url><loc>${baseUrl}${page.path}</loc><lastmod>${today}</lastmod><changefreq>${page.changefreq}</changefreq><priority>${page.priority}</priority></url>\n`;
 }
 
+// Core Service Pillar pages (e.g. /electrical-repairs-and-upgrades)
+for (const slug of coreServiceSlugs) {
+  xml += `  <url><loc>${baseUrl}/${slug}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
+}
+
 // Main Service pages
 for (const slug of serviceSlugs) {
   xml += `  <url><loc>${baseUrl}/services/${slug}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>\n`;
@@ -63,5 +75,5 @@ for (const sSlug of serviceSlugs) {
 xml += '</urlset>\n';
 
 fs.writeFileSync(path.join(rootDir, 'public/sitemap.xml'), xml, 'utf8');
-console.log(`Generated sitemap with ${staticPages.length + serviceSlugs.length + locationSlugs.length + (serviceSlugs.length * locationSlugs.length)} URLs successfully.`);
+console.log(`Generated sitemap with ${staticPages.length + coreServiceSlugs.length + serviceSlugs.length + locationSlugs.length + (serviceSlugs.length * locationSlugs.length)} URLs successfully.`);
 
