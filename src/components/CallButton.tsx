@@ -1,5 +1,6 @@
 import { Phone } from 'lucide-react';
 import { BUSINESS } from '@/data/business';
+import { trackPhoneCall } from '@/lib/analytics';
 
 interface CallButtonProps {
   variant?: 'primary' | 'small' | 'dark' | 'light';
@@ -23,6 +24,7 @@ export default function CallButton({
   return (
     <a
       href={BUSINESS.phoneHref}
+      onClick={() => trackPhoneCall(label)}
       className={`${VARIANT_CLASSES[variant]} ${className}`}
       aria-label={`Call All Wired at ${BUSINESS.phone}`}
     >

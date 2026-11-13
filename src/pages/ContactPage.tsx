@@ -20,6 +20,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import ServiceAreaLinks from '@/components/ServiceAreaLinks';
 import { BUSINESS, CORE_SERVICES } from '@/data/business';
 import { localBusinessSchema, breadcrumbSchema } from '@/lib/schema';
+import { trackQuoteSubmission } from '@/lib/analytics';
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -34,7 +35,7 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
+    trackQuoteSubmission(formData.service, formData.city || 'American Fork');
     setSubmitted(true);
   };
 

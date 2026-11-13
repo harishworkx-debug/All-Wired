@@ -794,3 +794,4 @@ export function getBlogPost(slug: string): BlogPost | undefined {
 export function getRelatedBlogPosts(currentSlug: string, category: string): BlogPost[] {
   return BLOG_POSTS.filter((p) => p.slug !== currentSlug && (p.category === category || true)).slice(0, 3);
 }
+

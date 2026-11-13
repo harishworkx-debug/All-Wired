@@ -1,5 +1,6 @@
 import { Phone } from 'lucide-react';
 import { BUSINESS } from '@/data/business';
+import { trackPhoneCall } from '@/lib/analytics';
 
 export default function StickyMobileCall() {
   return (
@@ -7,6 +8,7 @@ export default function StickyMobileCall() {
       <div className="border-t border-navy-100 bg-white/95 shadow-[0_-4px_12px_rgba(16,31,53,0.08)] backdrop-blur-md">
         <a
           href={BUSINESS.phoneHref}
+          onClick={() => trackPhoneCall('sticky_mobile_bottom_bar')}
           className="flex items-center justify-center gap-2.5 px-4 py-3.5"
           aria-label={`Call All Wired at ${BUSINESS.phone}`}
         >
