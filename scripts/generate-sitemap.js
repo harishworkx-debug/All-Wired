@@ -53,41 +53,41 @@ xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 // Static pages
 for (const page of staticPages) {
   const loc = page.path === '/' ? `${baseUrl}/` : `${baseUrl}${page.path}`;
-  xml += `  <url><loc>${loc}</loc><lastmod>${today}</lastmod><changefreq>${page.changefreq}</changefreq><priority>${page.priority}</priority></url>\n`;
+  xml += `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>\n`;
 }
 
 // Core Service Pillar pages (e.g. /electrical-repairs-and-upgrades)
 for (const slug of coreServiceSlugs) {
-  xml += `  <url><loc>${baseUrl}/${slug}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
+  xml += `  <url>\n    <loc>${baseUrl}/${slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>\n`;
 }
 
 // Core Service Location combinations (e.g. /electrical-repairs-and-upgrades-american-fork-ut)
 for (const cSlug of coreServiceSlugs) {
   for (const lSlug of locationSlugs) {
-    xml += `  <url><loc>${baseUrl}/${cSlug}-${lSlug}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>\n`;
+    xml += `  <url>\n    <loc>${baseUrl}/${cSlug}-${lSlug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.85</priority>\n  </url>\n`;
   }
 }
 
 // Main Service pages
 for (const slug of serviceSlugs) {
-  xml += `  <url><loc>${baseUrl}/services/${slug}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>\n`;
+  xml += `  <url>\n    <loc>${baseUrl}/services/${slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n`;
 }
 
 // Service Area pages (electrician-[city]-[state])
 for (const slug of locationSlugs) {
-  xml += `  <url><loc>${baseUrl}/electrician-${slug}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
+  xml += `  <url>\n    <loc>${baseUrl}/electrician-${slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
 }
 
 // Service Location combinations
 for (const sSlug of serviceSlugs) {
   for (const lSlug of locationSlugs) {
-    xml += `  <url><loc>${baseUrl}/${sSlug}-${lSlug}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>\n`;
+    xml += `  <url>\n    <loc>${baseUrl}/${sSlug}-${lSlug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
   }
 }
 
 // Blog Educational Articles
 for (const slug of blogSlugMatches) {
-  xml += `  <url><loc>${baseUrl}/blog/${slug}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
+  xml += `  <url>\n    <loc>${baseUrl}/blog/${slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
 }
 
 xml += '</urlset>\n';
