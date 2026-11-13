@@ -12,6 +12,7 @@ import {
   Star,
   Clock,
   Award,
+  BookOpen,
 } from 'lucide-react';
 import Seo from '@/components/Seo';
 import Reveal from '@/components/Reveal';
@@ -21,7 +22,7 @@ import CtaSection from '@/components/CtaSection';
 import FaqList from '@/components/FaqList';
 import ServiceAreaLinks from '@/components/ServiceAreaLinks';
 import { BUSINESS, CORE_SERVICES, getCoreService } from '@/data/business';
-import { localBusinessSchema, breadcrumbSchema } from '@/lib/schema';
+import { localBusinessSchema, breadcrumbSchema, faqSchema } from '@/lib/schema';
 
 const ICONS: Record<string, typeof Wrench> = {
   Wrench,
@@ -29,6 +30,214 @@ const ICONS: Record<string, typeof Wrench> = {
   BatteryCharging,
   Plug,
   Lightbulb,
+};
+
+interface ServiceCrossLink {
+  title: string;
+  url: string;
+  anchorText: string;
+  description: string;
+}
+
+interface ServiceBlogLink {
+  title: string;
+  url: string;
+  readTime: string;
+  category: string;
+}
+
+const SERVICE_CROSS_LINKS: Record<string, ServiceCrossLink[]> = {
+  'electrical-repairs-and-upgrades': [
+    {
+      title: 'Home Wiring & Installations',
+      url: '/wiring-and-installations',
+      anchorText: 'professional electrical wiring and installation',
+      description:
+        'When troubleshooting reveals damaged branch circuits, deteriorating cloth insulation, or outdated aluminum wiring, explore our comprehensive wiring services.',
+    },
+    {
+      title: 'EV Chargers & Modern Power',
+      url: '/ev-chargers-and-modern-power',
+      anchorText: 'Level 2 EV charger installation in American Fork',
+      description:
+        'Before installing continuous high-current appliances, our master electricians evaluate panel amperage capacity to confirm your system can support fast vehicle charging.',
+    },
+    {
+      title: 'Generators & Backup Power',
+      url: '/generators-and-backup-power',
+      anchorText: 'home generator installation and transfer switch solutions',
+      description:
+        'Upgrading your main circuit breaker panel is the ideal milestone to install an automatic transfer switch (ATS) or manual generator interlock for winter storm power resilience.',
+    },
+  ],
+  'wiring-and-installations': [
+    {
+      title: 'Electrical Repairs and Upgrades',
+      url: '/electrical-repairs-and-upgrades',
+      anchorText: 'electrical repair and troubleshooting in American Fork',
+      description:
+        'If your existing wiring exhibits tripping breakers, burning smells, or ungrounded two-prong outlets prior to your remodel, review our licensed repair services.',
+    },
+    {
+      title: 'Lighting Solutions',
+      url: '/lighting-solutions',
+      anchorText: 'indoor and outdoor lighting installation',
+      description:
+        'Finishing a basement or custom addition? Combine your new branch wiring rough-in with ultra-thin canless recessed LED downlights and architectural fixtures.',
+    },
+    {
+      title: 'EV Chargers & Modern Power',
+      url: '/ev-chargers-and-modern-power',
+      anchorText: 'dedicated EV charging circuit installation',
+      description:
+        'Modern high-draw electric vehicles require dedicated 240V 50A/60A copper lines run inside protective conduit directly from the breaker panel.',
+    },
+  ],
+  'lighting-solutions': [
+    {
+      title: 'Wiring and Installations',
+      url: '/wiring-and-installations',
+      anchorText: 'professional home electrical wiring',
+      description:
+        'Installing new recessed canless lights, heavy chandeliers, or ceiling fans in rooms without existing fixtures requires clean, code-compliant wire runs through ceiling joists.',
+    },
+    {
+      title: 'Electrical Repairs and Upgrades',
+      url: '/electrical-repairs-and-upgrades',
+      anchorText: 'electrical repairs and panel upgrades',
+      description:
+        'Experiencing flickering LED bulbs, buzzing dimmer switches, or warm wall plates? Our master technicians isolate and repair underlying switch and circuit faults.',
+    },
+  ],
+  'generators-and-backup-power': [
+    {
+      title: 'Electrical Repairs and Upgrades',
+      url: '/electrical-repairs-and-upgrades',
+      anchorText: 'electrical panel upgrade in American Fork',
+      description:
+        'Whole-home standby generators interface directly with your main breaker panel. Discover whether your service requires a 200-amp heavy-up before generator commissioning.',
+    },
+    {
+      title: 'Wiring and Installations',
+      url: '/wiring-and-installations',
+      anchorText: 'home electrical wiring and installations',
+      description:
+        'Connecting a portable generator requires a heavy-duty outdoor power inlet box and code-compliant mechanical interlock kit to prevent dangerous utility backfeeding.',
+    },
+  ],
+  'ev-chargers-and-modern-power': [
+    {
+      title: 'Electrical Repairs and Upgrades',
+      url: '/electrical-repairs-and-upgrades',
+      anchorText: 'electrical panel upgrades for EV charging',
+      description:
+        'An EV charging station is one of the highest continuous electrical loads in a home. Upgrading older 100A panels to 200A prevents service overloads and nuisance breaker trips.',
+    },
+    {
+      title: 'Wiring and Installations',
+      url: '/wiring-and-installations',
+      anchorText: 'dedicated 240V circuit installation',
+      description:
+        'Level 2 charging stations require dedicated 240-volt circuits utilizing commercial-grade copper conductors sized strictly under National Electrical Code Article 625.',
+    },
+  ],
+};
+
+const SERVICE_BLOG_GUIDES: Record<string, ServiceBlogLink[]> = {
+  'electrical-repairs-and-upgrades': [
+    {
+      title: '7 Signs Your Home Needs an Electrical Panel Upgrade',
+      url: '/blog/signs-home-needs-electrical-panel-upgrade',
+      readTime: '6 min read',
+      category: 'Electrical Panels',
+    },
+    {
+      title: 'When Should You Replace an Electrical Breaker?',
+      url: '/blog/when-should-you-replace-an-electrical-breaker',
+      readTime: '5 min read',
+      category: 'Electrical Panels',
+    },
+    {
+      title: 'Why Do Circuit Breakers Keep Tripping?',
+      url: '/blog/why-do-circuit-breakers-keep-tripping',
+      readTime: '5 min read',
+      category: 'Electrical Panels',
+    },
+    {
+      title: 'Common Electrical Problems in Older Homes',
+      url: '/blog/common-electrical-problems-in-older-homes',
+      readTime: '6 min read',
+      category: 'Home Wiring',
+    },
+  ],
+  'wiring-and-installations': [
+    {
+      title: 'What to Expect During a Home Electrical Wiring Project',
+      url: '/blog/what-to-expect-during-a-home-electrical-wiring-project',
+      readTime: '6 min read',
+      category: 'Home Wiring',
+    },
+    {
+      title: 'Common Electrical Problems in Older Homes',
+      url: '/blog/common-electrical-problems-in-older-homes',
+      readTime: '6 min read',
+      category: 'Home Wiring',
+    },
+    {
+      title: 'Electrical Safety Checklist for Homeowners',
+      url: '/blog/electrical-safety-checklist-for-homeowners',
+      readTime: '5 min read',
+      category: 'Safety',
+    },
+  ],
+  'lighting-solutions': [
+    {
+      title: 'What to Know Before Installing Outdoor Lighting',
+      url: '/blog/what-to-know-before-installing-outdoor-lighting',
+      readTime: '5 min read',
+      category: 'Lighting',
+    },
+    {
+      title: 'Electrical Safety Checklist for Homeowners',
+      url: '/blog/electrical-safety-checklist-for-homeowners',
+      readTime: '5 min read',
+      category: 'Safety',
+    },
+  ],
+  'generators-and-backup-power': [
+    {
+      title: 'Is Your Home Ready for a Backup Generator?',
+      url: '/blog/is-your-home-ready-for-a-backup-generator',
+      readTime: '6 min read',
+      category: 'Generators',
+    },
+    {
+      title: 'Electrical Safety Checklist for Homeowners',
+      url: '/blog/electrical-safety-checklist-for-homeowners',
+      readTime: '5 min read',
+      category: 'Safety',
+    },
+  ],
+  'ev-chargers-and-modern-power': [
+    {
+      title: 'How Much Does EV Charger Installation Cost in Utah?',
+      url: '/blog/how-much-does-ev-charger-installation-cost-in-utah',
+      readTime: '5 min read',
+      category: 'EV Charging',
+    },
+    {
+      title: 'Level 1 vs Level 2 EV Charging for Homeowners',
+      url: '/blog/level-1-vs-level-2-ev-charging-for-homeowners',
+      readTime: '5 min read',
+      category: 'EV Charging',
+    },
+    {
+      title: '7 Signs Your Home Needs an Electrical Panel Upgrade',
+      url: '/blog/signs-home-needs-electrical-panel-upgrade',
+      readTime: '6 min read',
+      category: 'Electrical Panels',
+    },
+  ],
 };
 
 interface CoreServicePageProps {
@@ -44,6 +253,8 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
 
   const Icon = ICONS[service.icon] ?? Wrench;
   const canonicalPath = `/${service.slug}`;
+  const crossLinks = SERVICE_CROSS_LINKS[service.slug] || [];
+  const relatedGuides = SERVICE_BLOG_GUIDES[service.slug] || [];
 
   const jsonLd = [
     localBusinessSchema(),
@@ -55,20 +266,22 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      name: service.h1,
+      name: service.name,
       description: service.metaDescription,
+      serviceType: service.name,
       provider: {
         '@type': 'Electrician',
         name: BUSINESS.legalName,
-        telephone: BUSINESS.phone,
+        alternateName: BUSINESS.name,
+        telephone: '+1-801-800-2828',
         url: BUSINESS.website,
       },
-      areaServed: [
-        { '@type': 'City', name: 'American Fork', addressRegion: 'UT' },
-        { '@type': 'City', name: 'Lehi', addressRegion: 'UT' },
-        { '@type': 'AdministrativeArea', name: 'Utah County' },
-      ],
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: 'Utah County',
+      },
     },
+    ...(service.faqs && service.faqs.length > 0 ? [faqSchema(service.faqs)] : []),
   ];
 
   const otherCoreServices = CORE_SERVICES.filter((s) => s.slug !== service.slug);
@@ -84,39 +297,40 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
       />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-navy-900 py-16 lg:py-24">
+      <section className="relative overflow-hidden bg-navy-900">
         <div className="absolute inset-0">
           <img
             src={service.image}
             alt={service.imageAlt}
-            className="h-full w-full object-cover opacity-20"
+            className="h-full w-full object-cover"
             loading="eager"
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-900/90 to-navy-900/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-900/90 to-navy-900/60" />
         </div>
+
         <div className="container-x relative">
-          <div className="max-w-3xl">
+          <div className="max-w-2xl py-20 sm:py-24 lg:py-28">
             <div className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-300 ring-1 ring-amber-400/30">
                 <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-                {service.shortName}
+                Licensed Utah Electrical Service
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-gray-200 ring-1 ring-white/15">
-                <ShieldCheck className="h-3 w-3 text-amber-400" aria-hidden="true" />
-                Licensed & Insured #123184-5502
+                <ShieldCheck className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
+                Utah License #{BUSINESS.license.number}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-gray-200 ring-1 ring-white/15">
-                <Award className="h-3 w-3 text-amber-400" aria-hidden="true" />
-                Over 40 Years Experience
+                <Award className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
+                40+ Years Experience
               </span>
             </div>
 
-            <h1 className="mt-5 font-display text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl text-balance">
+            <h1 className="mt-5 font-display text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl text-balance">
               {service.h1}
             </h1>
 
-            <p className="mt-5 text-lg text-gray-200 sm:text-xl text-pretty leading-relaxed">
+            <p className="mt-5 text-lg leading-relaxed text-gray-200 sm:text-xl text-pretty">
               {service.tagline}
             </p>
 
@@ -139,7 +353,7 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
               </span>
               <span className="flex items-center gap-1.5">
                 <Star className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden="true" />
-                5.0 Rated HomeAdvisor
+                5.0 Rated on Google & HomeAdvisor
               </span>
             </div>
           </div>
@@ -164,7 +378,7 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
         <div className="container-x">
           <div className="grid gap-12 lg:grid-cols-3">
             {/* Primary SEO Content */}
-            <div className="space-y-12 lg:col-span-2">
+            <div className="space-y-10 lg:col-span-2">
               {service.sections.map((sec, i) => (
                 <Reveal key={i}>
                   <div className="rounded-2xl border border-navy-100 bg-white p-6 shadow-sm sm:p-8">
@@ -195,6 +409,91 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
                   </div>
                 </Reveal>
               ))}
+
+              {/* Step 3: Contextual Service-to-Service Internal Links */}
+              {crossLinks.length > 0 && (
+                <Reveal>
+                  <div className="rounded-2xl border border-navy-200 bg-white p-6 shadow-sm sm:p-8">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-electric-50 text-electric-600">
+                        <Plug className="h-5 w-5" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <h3 className="font-display text-xl font-bold text-navy-900">
+                          Related Electrical Systems & Cross-Connections
+                        </h3>
+                        <p className="text-xs sm:text-sm text-navy-500">
+                          Comprehensive solutions for homes requiring integrated power upgrades
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 grid gap-4">
+                      {crossLinks.map((cl, clIdx) => (
+                        <div
+                          key={clIdx}
+                          className="rounded-xl border border-navy-100 bg-gray-50/70 p-4 transition-all hover:border-electric-300 hover:bg-white"
+                        >
+                          <p className="text-sm leading-relaxed text-navy-700">
+                            {cl.description}{' '}
+                            <Link
+                              to={cl.url}
+                              className="font-bold text-electric-600 hover:text-electric-700 underline underline-offset-2"
+                            >
+                              {cl.anchorText}
+                            </Link>
+                            .
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
+              )}
+
+              {/* Step 3: Service-to-Blog Internal Links */}
+              {relatedGuides.length > 0 && (
+                <Reveal>
+                  <div className="rounded-2xl border border-amber-200/80 bg-amber-50/40 p-6 shadow-sm sm:p-8">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-400/20 text-amber-800">
+                        <BookOpen className="h-5 w-5" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <h3 className="font-display text-xl font-bold text-navy-900">
+                          Helpful Homeowner Guides & Advice
+                        </h3>
+                        <p className="text-xs sm:text-sm text-navy-600">
+                          Read in-depth technical guides written by our master electricians
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                      {relatedGuides.map((guide, gIdx) => (
+                        <Link
+                          key={gIdx}
+                          to={guide.url}
+                          className="group flex flex-col justify-between rounded-xl border border-navy-100 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-electric-300 hover:shadow-md"
+                        >
+                          <div>
+                            <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-700">
+                              {guide.category} • {guide.readTime}
+                            </span>
+                            <h4 className="mt-1.5 font-display text-sm font-bold text-navy-900 group-hover:text-electric-600 transition-colors">
+                              {guide.title}
+                            </h4>
+                          </div>
+                          <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-electric-600">
+                            Read Guide
+                            <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </Reveal>
+              )}
             </div>
 
             {/* Sidebar */}
@@ -253,7 +552,7 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
                       to="/service-areas"
                       className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric-600 hover:text-electric-700"
                     >
-                      View all 10 service areas
+                      View all service areas
                       <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Link>
                   </div>
@@ -327,4 +626,3 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
     </>
   );
 }
-

@@ -50,8 +50,8 @@ export default function ContactPage() {
   return (
     <>
       <Seo
-        title="Contact All Wired LLC | Electrician in American Fork, UT"
-        description="Looking for a reliable electrician in American Fork, UT? Contact All Wired LLC. Call (801) 800-2828 for fast repairs, panel upgrades, EV chargers, and generator installations. Free estimates."
+        title="Contact Electrician American Fork UT | All Wired LLC"
+        description="Contact our licensed electrician in American Fork, UT. All Wired LLC provides fast electrical repairs, 200A panel upgrades, EV chargers, and lighting. Call (801) 800-2828 for a free quote."
         path="/contact"
         jsonLd={jsonLd}
       />
@@ -76,7 +76,7 @@ export default function ContactPage() {
             </div>
 
             <h1 className="mt-4 font-display text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl text-balance">
-              Contact Your Local Electrician in American Fork, Utah
+              Contact Electrician in American Fork, UT – All Wired LLC
             </h1>
 
             <p className="mt-5 text-lg text-gray-300 text-pretty leading-relaxed">

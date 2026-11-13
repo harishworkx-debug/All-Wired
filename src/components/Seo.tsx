@@ -7,6 +7,7 @@ interface SeoProps {
   path: string;
   jsonLd?: Record<string, unknown>[];
   ogImage?: string;
+  noindex?: boolean;
 }
 
 const SITE_URL = 'https://www.allwiredamericanfork.com';
@@ -41,7 +42,7 @@ function upsertJsonLd(id: string, data: Record<string, unknown> | Record<string,
   document.head.appendChild(el);
 }
 
-export default function Seo({ title, description, path, jsonLd, ogImage }: SeoProps) {
+export default function Seo({ title, description, path, jsonLd, ogImage, noindex }: SeoProps) {
   // Ensure canonical URL is always formatted properly
   const canonical = path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path.startsWith('/') ? path : '/' + path}`;
   const image = ogImage || `${SITE_URL}/icon-192.png`;
@@ -49,7 +50,10 @@ export default function Seo({ title, description, path, jsonLd, ogImage }: SeoPr
   useEffect(() => {
     document.title = title;
     upsertMeta('name', 'description', description);
-    upsertMeta('name', 'robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+    const robots = noindex
+      ? 'noindex, nofollow'
+      : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+    upsertMeta('name', 'robots', robots);
     upsertLink('canonical', canonical);
 
     upsertMeta('property', 'og:title', title);
@@ -70,7 +74,7 @@ export default function Seo({ title, description, path, jsonLd, ogImage }: SeoPr
       const existing = document.getElementById('page-jsonld');
       if (existing) existing.remove();
     }
-  }, [title, description, canonical, image, jsonLd]);
+  }, [title, description, canonical, image, jsonLd, noindex]);
 
   return null;
 }

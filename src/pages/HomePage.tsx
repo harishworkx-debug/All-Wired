@@ -35,6 +35,14 @@ const ICONS: Record<string, typeof Wrench> = {
   Lightbulb,
 };
 
+const CORE_SERVICE_ANCHORS: Record<string, string> = {
+  'electrical-repairs-and-upgrades': 'Electrical Repair Services in American Fork',
+  'wiring-and-installations': 'Professional Electrical Wiring and Installation',
+  'lighting-solutions': 'Indoor and Outdoor Lighting Installation',
+  'generators-and-backup-power': 'Home Generator Installation',
+  'ev-chargers-and-modern-power': 'EV Charger Installation in American Fork',
+};
+
 const heroImage =
   'https://images.pexels.com/photos/27928762/pexels-photo-27928762.jpeg?auto=compress&cs=tinysrgb&h=900&w=1600';
 
@@ -113,7 +121,7 @@ export default function HomePage() {
               </div>
 
               <h1 className="mt-6 font-display text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl text-balance">
-                Trusted Electrician in American Fork, UT – Residential Electrical Services
+                Trusted Electrician in American Fork, UT – All Wired LLC
               </h1>
               <p className="mt-5 text-lg text-gray-200 sm:text-xl text-pretty leading-relaxed">
                 Looking for a reliable electrician in American Fork, UT? All Wired LLC delivers over
@@ -224,7 +232,7 @@ export default function HomePage() {
                       </p>
                       <div className="mt-5 flex items-center justify-between border-t border-navy-100 pt-4">
                         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric-600 group-hover:text-electric-700">
-                          Explore Service
+                          {CORE_SERVICE_ANCHORS[s.slug] || s.name}
                           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                         </span>
                       </div>
@@ -355,7 +363,7 @@ export default function HomePage() {
                     to="/electrical-repairs-and-upgrades"
                     className="inline-flex items-center gap-2 font-semibold text-electric-600 hover:text-electric-700"
                   >
-                    Learn about electrical repairs & troubleshooting
+                    Electrical Repair Services in American Fork
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </div>
@@ -392,7 +400,7 @@ export default function HomePage() {
                     to="/electrical-repairs-and-upgrades"
                     className="inline-flex items-center gap-2 font-semibold text-electric-600 hover:text-electric-700"
                   >
-                    Explore panel upgrades & replacement options
+                    Electrical Panel Upgrades in American Fork
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </div>
@@ -429,7 +437,7 @@ export default function HomePage() {
                     to="/wiring-and-installations"
                     className="inline-flex items-center gap-2 font-semibold text-electric-600 hover:text-electric-700"
                   >
-                    View home wiring & installation capabilities
+                    Professional Electrical Wiring and Installation
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </div>
@@ -465,7 +473,7 @@ export default function HomePage() {
                     to="/lighting-solutions"
                     className="inline-flex items-center gap-2 font-semibold text-electric-600 hover:text-electric-700"
                   >
-                    See our lighting solutions & designs
+                    Indoor and Outdoor Lighting Installation
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </div>
@@ -504,7 +512,7 @@ export default function HomePage() {
                       to="/ev-chargers-and-modern-power"
                       className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric-600 hover:text-electric-700"
                     >
-                      Learn more about home EV charger installation
+                      EV Charger Installation in American Fork
                       <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Link>
                   </div>
@@ -531,7 +539,7 @@ export default function HomePage() {
                       to="/generators-and-backup-power"
                       className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric-600 hover:text-electric-700"
                     >
-                      Explore generator and backup power solutions
+                      Home Generator Installation
                       <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Link>
                   </div>

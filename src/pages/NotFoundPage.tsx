@@ -11,6 +11,7 @@ export default function NotFoundPage() {
         title="Page Not Found | All Wired"
         description="The page you are looking for could not be found. Call All Wired at (801) 800-2828 for electrical service in American Fork, UT."
         path="/404"
+        noindex={true}
       />
 
       <section className="bg-navy-900 py-20 lg:py-28">
