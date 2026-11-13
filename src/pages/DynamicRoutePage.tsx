@@ -34,31 +34,44 @@ export default function DynamicRoutePage() {
     return <Navigate to={locationUrl(bareLocation.slug)} replace />;
   }
 
-  // Check if it's a core service location combination (e.g. "electrical-repairs-and-upgrades-american-fork-ut")
+  // Check if it's a core service location combination (e.g. "electrical-repairs-and-upgrades-american-fork-ut" or with "-in-")
   for (const core of CORE_SERVICES) {
-    const prefix = `${core.slug}-`;
-    if (slug.startsWith(prefix)) {
-      const remainingSlug = slug.slice(prefix.length);
-      const loc = getLocation(remainingSlug);
-      if (loc) {
-        return <CoreServicePage slug={core.slug} locationSlug={loc.slug} />;
+    const prefixes = [`${core.slug}-`, `${core.slug}-in-`];
+    for (const prefix of prefixes) {
+      if (slug.startsWith(prefix)) {
+        const remainingSlug = slug.slice(prefix.length).replace(/^in-/, '');
+        const loc = getLocation(remainingSlug);
+        if (loc) {
+          return <CoreServicePage slug={core.slug} locationSlug={loc.slug} />;
+        }
       }
     }
   }
 
-  // Check if it's a service-location combination (e.g., "electrical-repair-american-fork-ut")
+  // Handle common phrase alias "electrical-repair-services-in-"
+  if (slug.startsWith('electrical-repair-services-')) {
+    const remainingSlug = slug.replace(/^electrical-repair-services-(in-)?/, '');
+    const loc = getLocation(remainingSlug);
+    if (loc) {
+      return <CoreServicePage slug="electrical-repairs-and-upgrades" locationSlug={loc.slug} />;
+    }
+  }
+
+  // Check if it's a service-location combination (e.g., "electrical-repair-american-fork-ut" or with "-in-")
   for (const service of SERVICES) {
-    const prefix = `${service.slug}-`;
-    if (slug.startsWith(prefix)) {
-      const remainingSlug = slug.slice(prefix.length);
-      const loc = getLocation(remainingSlug);
-      if (loc) {
-        return (
-          <ServiceLocationPage
-            serviceSlug={service.slug}
-            locationSlug={loc.slug}
-          />
-        );
+    const prefixes = [`${service.slug}-`, `${service.slug}-in-`];
+    for (const prefix of prefixes) {
+      if (slug.startsWith(prefix)) {
+        const remainingSlug = slug.slice(prefix.length).replace(/^in-/, '');
+        const loc = getLocation(remainingSlug);
+        if (loc) {
+          return (
+            <ServiceLocationPage
+              serviceSlug={service.slug}
+              locationSlug={loc.slug}
+            />
+          );
+        }
       }
     }
   }

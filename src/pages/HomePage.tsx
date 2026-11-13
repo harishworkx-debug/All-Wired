@@ -208,13 +208,13 @@ export default function HomePage() {
               return (
                 <Reveal key={s.slug} delay={i * 70}>
                   <Link
-                    to={`/${s.slug}`}
+                    to={`/${s.slug}-american-fork-ut`}
                     className="card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer"
                   >
                     <div className="relative h-48 overflow-hidden">
                       <img
                         src={s.image}
-                        alt={s.imageAlt}
+                        alt={`${s.name} in American Fork, UT — ${s.imageAlt}`}
                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
                       />
@@ -225,14 +225,14 @@ export default function HomePage() {
                     </div>
                     <div className="flex flex-1 flex-col p-6">
                       <h3 className="font-display text-xl font-bold text-navy-900 transition-colors group-hover:text-electric-600">
-                        {s.name}
+                        {s.name} in American Fork
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-navy-600 flex-1">
                         {s.tagline}
                       </p>
                       <div className="mt-5 flex items-center justify-between border-t border-navy-100 pt-4">
                         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric-600 group-hover:text-electric-700">
-                          {CORE_SERVICE_ANCHORS[s.slug] || s.name}
+                          {CORE_SERVICE_ANCHORS[s.slug] || `${s.name} in American Fork`}
                           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                         </span>
                       </div>

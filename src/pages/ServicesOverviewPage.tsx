@@ -130,7 +130,10 @@ export default function ServicesOverviewPage() {
               return (
                 <Reveal key={cs.slug} delay={i * 70}>
                   <div className="card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1">
-                    <Link to={`/${cs.slug}`} className="relative block h-48 overflow-hidden">
+                    <Link
+                      to={coreServiceLocationUrl(cs.slug, 'american-fork-ut')}
+                      className="relative block h-48 overflow-hidden"
+                    >
                       <img
                         src={cs.image}
                         alt={`${cs.name} in American Fork, UT — ${cs.imageAlt}`}
@@ -147,7 +150,7 @@ export default function ServicesOverviewPage() {
                       </span>
                     </Link>
                     <div className="flex flex-1 flex-col p-6">
-                      <Link to={`/${cs.slug}`}>
+                      <Link to={coreServiceLocationUrl(cs.slug, 'american-fork-ut')}>
                         <h3 className="font-display text-xl font-bold text-navy-900 transition-colors group-hover:text-electric-600">
                           {cs.name} in American Fork, UT
                         </h3>
@@ -176,7 +179,7 @@ export default function ServicesOverviewPage() {
 
                       <div className="mt-4 flex items-center justify-between border-t border-navy-100 pt-3">
                         <Link
-                          to={`/${cs.slug}`}
+                          to={coreServiceLocationUrl(cs.slug, 'american-fork-ut')}
                           className="inline-flex items-center gap-1.5 text-xs font-semibold text-electric-600 hover:text-electric-700"
                         >
                           {CORE_SERVICE_ANCHORS[cs.slug] || `${cs.name} in American Fork`}
@@ -213,7 +216,10 @@ export default function ServicesOverviewPage() {
               return (
                 <Reveal key={s.slug} delay={i * 60}>
                   <div className="card group flex h-full flex-col overflow-hidden transition-all duration-300 hover:border-electric-300 hover:shadow-xl hover:-translate-y-1">
-                    <Link to={`/services/${s.slug}`} className="relative block h-44 overflow-hidden">
+                    <Link
+                      to={serviceLocationUrl(s.slug, 'american-fork-ut')}
+                      className="relative block h-44 overflow-hidden"
+                    >
                       <img
                         src={s.image}
                         alt={`${s.name} in American Fork, UT — ${s.imageAlt}`}
@@ -230,7 +236,7 @@ export default function ServicesOverviewPage() {
                       </span>
                     </Link>
                     <div className="flex flex-1 flex-col p-6">
-                      <Link to={`/services/${s.slug}`}>
+                      <Link to={serviceLocationUrl(s.slug, 'american-fork-ut')}>
                         <h3 className="font-display text-lg font-bold text-navy-900 transition-colors group-hover:text-electric-600">
                           {s.name} in American Fork, UT
                         </h3>
@@ -269,10 +275,10 @@ export default function ServicesOverviewPage() {
 
                       <div className="mt-4 flex items-center justify-between border-t border-navy-100 pt-3">
                         <Link
-                          to={`/services/${s.slug}`}
+                          to={serviceLocationUrl(s.slug, 'american-fork-ut')}
                           className="inline-flex items-center gap-1 text-xs font-semibold text-electric-600 hover:text-electric-700"
                         >
-                          View {s.name} Details
+                          View {s.name} in American Fork
                           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                         </Link>
                       </div>

@@ -40,10 +40,10 @@ export default function Footer() {
               {CORE_SERVICES.map((s) => (
                 <li key={s.slug}>
                   <Link
-                    to={`/${s.slug}`}
+                    to={`/${s.slug}-american-fork-ut`}
                     className="text-sm text-gray-400 transition-colors hover:text-amber-400"
                   >
-                    {s.name}
+                    {s.name} in American Fork
                   </Link>
                 </li>
               ))}

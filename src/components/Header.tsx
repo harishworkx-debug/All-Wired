@@ -94,10 +94,10 @@ export default function Header() {
                       {CORE_SERVICES.map((s) => (
                         <Link
                           key={s.slug}
-                          to={`/${s.slug}`}
+                          to={`/${s.slug}-american-fork-ut`}
                           className="block rounded-lg px-3 py-2 text-sm text-navy-700 hover:bg-gray-50 hover:text-electric-600 font-medium"
                         >
-                          {s.name}
+                          {s.name} in American Fork
                         </Link>
                       ))}
                     </div>
@@ -206,10 +206,10 @@ export default function Header() {
                 {CORE_SERVICES.map((s) => (
                   <Link
                     key={s.slug}
-                    to={`/${s.slug}`}
+                    to={`/${s.slug}-american-fork-ut`}
                     className="block rounded-lg px-3 py-2 text-sm text-navy-600 hover:bg-gray-50 font-medium"
                   >
-                    {s.name}
+                    {s.name} in American Fork
                   </Link>
                 ))}
               </div>
