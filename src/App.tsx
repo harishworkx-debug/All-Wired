@@ -11,6 +11,8 @@ import ServiceAreasPage from '@/pages/ServiceAreasPage';
 import LocationPage from '@/pages/LocationPage';
 import ServiceLocationPage from '@/pages/ServiceLocationPage';
 import ContactPage from '@/pages/ContactPage';
+import BlogOverviewPage from '@/pages/BlogOverviewPage';
+import BlogPostPage from '@/pages/BlogPostPage';
 import PrivacyPolicyPage from '@/pages/PrivacyPolicyPage';
 import TermsPage from '@/pages/TermsPage';
 import NotFoundPage from '@/pages/NotFoundPage';
@@ -30,6 +32,8 @@ export default function App() {
             <Route path="/services/:serviceSlug" element={<ServiceDetailPage />} />
             <Route path="/service-areas" element={<ServiceAreasPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/blog" element={<BlogOverviewPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
             <Route path="/terms-and-conditions" element={<TermsPage />} />
             <Route path="/404" element={<NotFoundPage />} />

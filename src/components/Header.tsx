@@ -144,6 +144,10 @@ export default function Header() {
                 )}
               </div>
 
+              <Link to="/blog" className={navLinkClass}>
+                Guides
+              </Link>
+
               <Link to="/contact" className={navLinkClass}>
                 Contact
               </Link>
@@ -227,6 +231,10 @@ export default function Header() {
                   </Link>
                 ))}
               </div>
+
+              <Link to="/blog" className="block rounded-lg px-3 py-3 text-base font-medium text-navy-900 hover:bg-gray-50">
+                Guides & Resources
+              </Link>
 
               <Link to="/contact" className="block rounded-lg px-3 py-3 text-base font-medium text-navy-900 hover:bg-gray-50">
                 Contact

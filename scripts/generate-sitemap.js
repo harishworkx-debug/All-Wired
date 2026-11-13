@@ -29,6 +29,10 @@ if (locationSlugMatch) {
   locationSlugs = [...locationSlugMatch[1].matchAll(/'([^']+)'/g)].map(m => m[1]);
 }
 
+// Extract blog post slugs
+const blogFile = fs.readFileSync(path.join(rootDir, 'src/data/blog.ts'), 'utf8');
+const blogSlugMatches = [...blogFile.matchAll(/slug:\s*'([^']+)'/g)].map(m => m[1]);
+
 const baseUrl = 'https://www.allwiredamericanfork.com';
 const today = new Date().toISOString().split('T')[0];
 
@@ -37,6 +41,7 @@ const staticPages = [
   { path: '/about', changefreq: 'monthly', priority: '0.8' },
   { path: '/services', changefreq: 'monthly', priority: '0.9' },
   { path: '/service-areas', changefreq: 'monthly', priority: '0.8' },
+  { path: '/blog', changefreq: 'weekly', priority: '0.8' },
   { path: '/contact', changefreq: 'monthly', priority: '0.8' },
   { path: '/privacy-policy', changefreq: 'yearly', priority: '0.3' },
   { path: '/terms-and-conditions', changefreq: 'yearly', priority: '0.3' },
@@ -73,8 +78,19 @@ for (const sSlug of serviceSlugs) {
   }
 }
 
+// Blog Educational Articles
+for (const slug of blogSlugMatches) {
+  xml += `  <url><loc>${baseUrl}/blog/${slug}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>\n`;
+}
+
 xml += '</urlset>\n';
 
 fs.writeFileSync(path.join(rootDir, 'public/sitemap.xml'), xml, 'utf8');
-const totalUrls = staticPages.length + coreServiceSlugs.length + serviceSlugs.length + locationSlugs.length + (serviceSlugs.length * locationSlugs.length);
+const totalUrls =
+  staticPages.length +
+  coreServiceSlugs.length +
+  serviceSlugs.length +
+  locationSlugs.length +
+  serviceSlugs.length * locationSlugs.length +
+  blogSlugMatches.length;
 console.log(`Generated sitemap with ${totalUrls} URLs successfully.`);

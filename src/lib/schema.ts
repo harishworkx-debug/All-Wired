@@ -1,20 +1,25 @@
 import { BUSINESS, SERVICES, LOCATIONS, locationUrl, type ServiceInfo, type LocationInfo } from '@/data/business';
 import { SITE_URL } from '@/components/Seo';
+import type { BlogPost } from '@/data/blog';
 
 export function localBusinessSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Electrician',
     '@id': `${SITE_URL}/#business`,
-    name: BUSINESS.name,
-    legalName: BUSINESS.legalName,
-    description: `${BUSINESS.name} is a licensed electrician based in ${BUSINESS.address.city}, ${BUSINESS.address.state} providing electrical repair, panel upgrades, EV charger installation, and remodel electrical services.`,
+    name: BUSINESS.legalName,
+    alternateName: BUSINESS.name,
+    description: `${BUSINESS.legalName} is a licensed electrician based in ${BUSINESS.address.city}, ${BUSINESS.address.state} providing electrical repair, panel upgrades, EV charger installation, and remodel electrical services.`,
     url: BUSINESS.website,
-    telephone: BUSINESS.phoneHref.replace('tel:', ''),
+    telephone: '+1-801-800-2828',
     image: `${SITE_URL}/icon-192.png`,
     priceRange: '$$',
     paymentAccepted: BUSINESS.paymentMethods.join(', '),
-    areaServed: LOCATIONS.map((l) => `${l.city}, ${l.state}`),
+    areaServed: LOCATIONS.map((l) => ({
+      '@type': 'City',
+      name: l.city,
+      addressRegion: l.state,
+    })),
     address: {
       '@type': 'PostalAddress',
       streetAddress: BUSINESS.address.street,
@@ -59,9 +64,11 @@ export function organizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${SITE_URL}/#organization`,
-    name: BUSINESS.name,
+    name: BUSINESS.legalName,
+    alternateName: BUSINESS.name,
     url: BUSINESS.website,
-    telephone: BUSINESS.phoneHref.replace('tel:', ''),
+    telephone: '+1-801-800-2828',
+    logo: `${SITE_URL}/icon-192.png`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: BUSINESS.address.street,
@@ -70,6 +77,7 @@ export function organizationSchema() {
       postalCode: BUSINESS.address.zip,
       addressCountry: 'US',
     },
+    sameAs: [BUSINESS.mapsLink],
   };
 }
 
@@ -78,7 +86,7 @@ export function websiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
-    name: BUSINESS.name,
+    name: BUSINESS.legalName,
     url: BUSINESS.website,
     publisher: { '@id': `${SITE_URL}/#organization` },
   };
@@ -142,5 +150,54 @@ export function placeSchema(location: LocationInfo) {
         },
       })),
     },
+  };
+}
+
+export function articleSchema(post: BlogPost) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    '@id': `${SITE_URL}/blog/${post.slug}#article`,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${SITE_URL}/blog/${post.slug}`,
+    },
+    headline: post.title,
+    description: post.metaDescription,
+    image: post.image,
+    datePublished: '2026-11-01T08:00:00+00:00',
+    dateModified: '2026-11-13T08:00:00+00:00',
+    author: {
+      '@type': 'Organization',
+      name: BUSINESS.legalName,
+      url: BUSINESS.website,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: BUSINESS.legalName,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/icon-192.png`,
+      },
+    },
+    about: {
+      '@type': 'Thing',
+      name: post.mainKeyword,
+    },
+  };
+}
+
+export function faqSchema(faqs: { q: string; a: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.a,
+      },
+    })),
   };
 }

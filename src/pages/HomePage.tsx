@@ -16,6 +16,7 @@ import {
   Handshake,
   CheckCircle2,
   FileText,
+  BookOpen,
 } from 'lucide-react';
 import Seo from '@/components/Seo';
 import Reveal from '@/components/Reveal';
@@ -23,6 +24,7 @@ import CallButton from '@/components/CallButton';
 import FaqList from '@/components/FaqList';
 import CtaSection from '@/components/CtaSection';
 import { BUSINESS, CORE_SERVICES, LOCATIONS, locationUrl } from '@/data/business';
+import { BLOG_POSTS } from '@/data/blog';
 import { localBusinessSchema, organizationSchema, websiteSchema } from '@/lib/schema';
 
 const ICONS: Record<string, typeof Wrench> = {
@@ -653,7 +655,84 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 8: Frequently Asked Questions About Electrical Services */}
+      {/* Section 8: Educational Guides & Content Marketing Section */}
+      <section className="section-pad bg-gray-50 border-t border-navy-100">
+        <div className="container-x">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-900 ring-1 ring-amber-400/30">
+              <BookOpen className="h-3 w-3" aria-hidden="true" />
+              Electrical Knowledge Hub
+            </span>
+            <h2 className="mt-3 font-display text-3xl font-bold text-navy-900 sm:text-4xl text-balance">
+              Latest Electrical Guides & Advice for Utah Homeowners
+            </h2>
+            <p className="mt-4 text-base text-navy-600">
+              Expert articles and practical advice to help you maintain a safe, efficient, and up-to-code electrical system.
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {BLOG_POSTS.slice(0, 3).map((post, i) => (
+              <Reveal key={post.slug} delay={i * 60}>
+                <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:border-electric-200 hover:shadow-lg">
+                  <Link to={`/blog/${post.slug}`} className="relative block aspect-[16/9] overflow-hidden bg-navy-100">
+                    <img
+                      src={post.image}
+                      alt={post.imageAlt}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <span className="absolute left-3 top-3 rounded-full bg-navy-950/80 px-2.5 py-1 text-xs font-semibold text-amber-300 backdrop-blur-sm">
+                      {post.category}
+                    </span>
+                  </Link>
+
+                  <div className="flex flex-1 flex-col p-6">
+                    <div className="text-xs text-navy-500">
+                      {post.publishDate} • {post.readTime}
+                    </div>
+
+                    <h3 className="mt-3 font-display text-lg font-bold text-navy-900 transition-colors group-hover:text-electric-600">
+                      <Link to={`/blog/${post.slug}`}>
+                        {post.title}
+                      </Link>
+                    </h3>
+
+                    <p className="mt-3 flex-1 text-xs sm:text-sm leading-relaxed text-navy-600 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+
+                    <div className="mt-5 border-t border-navy-50 pt-4 flex items-center justify-between">
+                      <Link
+                        to={post.targetService.url}
+                        className="text-xs font-medium text-navy-500 hover:text-electric-600 underline"
+                      >
+                        Explore {post.targetService.name}
+                      </Link>
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-electric-600 group-hover:text-electric-700"
+                      >
+                        Read
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-10 text-center">
+            <Link to="/blog" className="btn-outline">
+              Browse All 10 Electrical Guides
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Section 9: Frequently Asked Questions About Electrical Services */}
       <section className="section-pad bg-white">
         <div className="container-x">
           <Reveal className="mx-auto max-w-3xl">
