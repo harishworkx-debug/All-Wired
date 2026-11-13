@@ -226,7 +226,7 @@ export default function ServiceLocationPage({
                 All Wired also offers {service.name.toLowerCase()} in these neighboring communities.
               </p>
               <div className="mt-5">
-                <ServiceAreaLinks highlight={location.slug} />
+                <ServiceAreaLinks highlight={location.slug} serviceSlug={service.slug} serviceName={service.name} />
               </div>
             </Reveal>
             <Reveal delay={100}>
@@ -237,7 +237,7 @@ export default function ServiceLocationPage({
                 We offer a full range of electrical services beyond {service.name.toLowerCase()}.
               </p>
               <div className="mt-5">
-                <ServiceLinks highlight={service.slug} />
+                <ServiceLinks highlight={service.slug} locationSlug={location.slug} locationCity={location.city} />
               </div>
             </Reveal>
           </div>

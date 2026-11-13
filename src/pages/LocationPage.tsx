@@ -22,10 +22,12 @@ import ServiceAreaLinks from '@/components/ServiceAreaLinks';
 import {
   BUSINESS,
   SERVICES,
+  CORE_SERVICES,
   getLocation,
   LOCATIONS,
   locationUrl,
   serviceLocationUrl,
+  coreServiceLocationUrl,
 } from '@/data/business';
 import { placeSchema, breadcrumbSchema, localBusinessSchema } from '@/lib/schema';
 
@@ -222,10 +224,34 @@ export default function LocationPage({ locationSlug: propSlug }: LocationPagePro
               {/* Services Available in this City */}
               <div>
                 <h3 className="font-display text-xl font-bold text-navy-900">
-                  Electrical Services Available in {location.city}
+                  Primary Electrical Pillars in {location.city}
                 </h3>
                 <p className="mt-1 text-sm text-navy-500">
-                  Select any service below to view specific local details, pricing factors, and scheduling.
+                  Explore our core electrical service solutions tailored to {location.city} homes and businesses.
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  {CORE_SERVICES.map((cs) => (
+                    <Link
+                      key={cs.slug}
+                      to={coreServiceLocationUrl(cs.slug, location.slug)}
+                      className="group flex items-center justify-between rounded-xl border border-electric-200 bg-electric-50/40 px-4 py-3.5 transition-all hover:border-electric-400 hover:bg-electric-50 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+                    >
+                      <span className="text-sm font-semibold text-navy-900 group-hover:text-electric-600">
+                        {cs.name} in {location.city}
+                      </span>
+                      <ChevronRight
+                        className="h-4 w-4 text-electric-600 transition-transform group-hover:translate-x-0.5"
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  ))}
+                </div>
+
+                <h4 className="mt-8 font-display text-lg font-bold text-navy-900">
+                  Specialized Electrical Services in {location.city}
+                </h4>
+                <p className="mt-1 text-sm text-navy-500">
+                  Targeted electrical repair, wiring, and modern efficiency installations.
                 </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
                   {SERVICES.map((s) => (

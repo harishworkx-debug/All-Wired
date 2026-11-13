@@ -13,6 +13,8 @@ import {
   Clock,
   Award,
   BookOpen,
+  MapPin,
+  Building2,
 } from 'lucide-react';
 import Seo from '@/components/Seo';
 import Reveal from '@/components/Reveal';
@@ -21,8 +23,20 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaSection from '@/components/CtaSection';
 import FaqList from '@/components/FaqList';
 import ServiceAreaLinks from '@/components/ServiceAreaLinks';
-import { BUSINESS, CORE_SERVICES, getCoreService } from '@/data/business';
-import { localBusinessSchema, breadcrumbSchema, faqSchema } from '@/lib/schema';
+import {
+  BUSINESS,
+  CORE_SERVICES,
+  getCoreService,
+  getLocation,
+  locationUrl,
+  coreServiceLocationUrl,
+} from '@/data/business';
+import {
+  localBusinessSchema,
+  breadcrumbSchema,
+  faqSchema,
+  placeSchema,
+} from '@/lib/schema';
 
 const ICONS: Record<string, typeof Wrench> = {
   Wrench,
@@ -242,32 +256,61 @@ const SERVICE_BLOG_GUIDES: Record<string, ServiceBlogLink[]> = {
 
 interface CoreServicePageProps {
   slug?: string;
+  locationSlug?: string;
 }
 
-export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps = {}) {
+export default function CoreServicePage({
+  slug: propSlug,
+  locationSlug: propLocationSlug,
+}: CoreServicePageProps = {}) {
   const params = useParams();
   const slug = propSlug ?? params.serviceSlug ?? params.slug;
   const service = slug ? getCoreService(slug) : undefined;
 
+  const locSlug = propLocationSlug ?? params.locationSlug;
+  const location = locSlug ? getLocation(locSlug) : undefined;
+
   if (!service) return <Navigate to="/404" replace />;
 
   const Icon = ICONS[service.icon] ?? Wrench;
-  const canonicalPath = `/${service.slug}`;
+  const canonicalPath = location
+    ? coreServiceLocationUrl(service.slug, location.slug)
+    : `/${service.slug}`;
   const crossLinks = SERVICE_CROSS_LINKS[service.slug] || [];
   const relatedGuides = SERVICE_BLOG_GUIDES[service.slug] || [];
 
+  const pageTitle = location
+    ? `${service.name} in ${location.city}, ${location.state} | All Wired LLC`
+    : service.seoTitle;
+  const pageDescription = location
+    ? `Looking for professional ${service.name.toLowerCase()} in ${location.city}, UT? All Wired LLC provides master craftsmanship, code compliance & upfront estimates. Call (801) 800-2828.`
+    : service.metaDescription;
+  const heroH1 = location
+    ? `${service.name} in ${location.city}, ${location.state}`
+    : service.h1;
+
+  const breadcrumbItems = location
+    ? [
+        { name: 'Home', path: '/' },
+        { name: 'Services', path: '/services' },
+        { name: service.name, path: `/${service.slug}` },
+        { name: `${service.name} in ${location.city}`, path: canonicalPath },
+      ]
+    : [
+        { name: 'Home', path: '/' },
+        { name: 'Services', path: '/services' },
+        { name: service.name, path: canonicalPath },
+      ];
+
   const jsonLd = [
     localBusinessSchema(),
-    breadcrumbSchema([
-      { name: 'Home', path: '/' },
-      { name: 'Services', path: '/services' },
-      { name: service.name, path: canonicalPath },
-    ]),
+    breadcrumbSchema(breadcrumbItems),
+    ...(location ? [placeSchema(location)] : []),
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      name: service.name,
-      description: service.metaDescription,
+      name: location ? `${service.name} in ${location.city}` : service.name,
+      description: pageDescription,
       serviceType: service.name,
       provider: {
         '@type': 'Electrician',
@@ -276,10 +319,19 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
         telephone: '+1-801-800-2828',
         url: BUSINESS.website,
       },
-      areaServed: {
-        '@type': 'AdministrativeArea',
-        name: 'Utah County',
-      },
+      areaServed: location
+        ? {
+            '@type': 'City',
+            name: location.city,
+            containedInPlace: {
+              '@type': 'AdministrativeArea',
+              name: 'Utah County',
+            },
+          }
+        : {
+            '@type': 'AdministrativeArea',
+            name: 'Utah County',
+          },
     },
     ...(service.faqs && service.faqs.length > 0 ? [faqSchema(service.faqs)] : []),
   ];
@@ -289,8 +341,8 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
   return (
     <>
       <Seo
-        title={service.seoTitle}
-        description={service.metaDescription}
+        title={pageTitle}
+        description={pageDescription}
         path={canonicalPath}
         jsonLd={jsonLd}
         ogImage={service.image}
@@ -313,8 +365,8 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
           <div className="max-w-2xl py-20 sm:py-24 lg:py-28">
             <div className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-amber-300 ring-1 ring-amber-400/30">
-                <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-                Licensed Utah Electrical Service
+                <MapPin className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
+                {location ? `${location.city}, ${location.state} Service` : 'Licensed Utah Electrical Service'}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-gray-200 ring-1 ring-white/15">
                 <ShieldCheck className="h-3.5 w-3.5 text-amber-400" aria-hidden="true" />
@@ -327,7 +379,7 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
             </div>
 
             <h1 className="mt-5 font-display text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl text-balance">
-              {service.h1}
+              {heroH1}
             </h1>
 
             <p className="mt-5 text-lg leading-relaxed text-gray-200 sm:text-xl text-pretty">
@@ -363,13 +415,7 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
       {/* Breadcrumbs */}
       <div className="bg-gray-50 pt-6">
         <div className="container-x">
-          <Breadcrumbs
-            items={[
-              { name: 'Home', path: '/' },
-              { name: 'Services', path: '/services' },
-              { name: service.name },
-            ]}
-          />
+          <Breadcrumbs items={breadcrumbItems} />
         </div>
       </div>
 
@@ -379,6 +425,37 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
           <div className="grid gap-12 lg:grid-cols-3">
             {/* Primary SEO Content */}
             <div className="space-y-10 lg:col-span-2">
+              {location && (
+                <Reveal>
+                  <div className="rounded-2xl border border-electric-200 bg-electric-50/60 p-6 sm:p-8">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-electric-600 text-white shadow-sm">
+                        <MapPin className="h-6 w-6" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <h2 className="font-display text-xl font-bold text-navy-900">
+                          {service.name} Serving {location.city}, UT
+                        </h2>
+                        <p className="text-xs sm:text-sm text-navy-600">
+                          Dedicated master electrical craftsmanship for {location.city} homeowners & businesses
+                        </p>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-sm sm:text-base leading-relaxed text-navy-700">
+                      {location.housingProfile}
+                    </p>
+                    {location.utilityInfo && (
+                      <div className="mt-5 border-t border-electric-200/70 pt-4 text-xs sm:text-sm text-navy-700">
+                        <p className="font-semibold text-navy-900">Local Utility & Permitting Coordination:</p>
+                        <p className="mt-1 text-navy-600">
+                          We manage all meter release coordination with {location.utilityInfo.powerCompany} and file electrical permits directly through {location.utilityInfo.permitsOffice}. {location.utilityInfo.notes}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </Reveal>
+              )}
+
               {service.sections.map((sec, i) => (
                 <Reveal key={i}>
                   <div className="rounded-2xl border border-navy-100 bg-white p-6 shadow-sm sm:p-8">
@@ -596,7 +673,7 @@ export default function CoreServicePage({ slug: propSlug }: CoreServicePageProps
             </p>
           </Reveal>
           <div className="mt-10">
-            <ServiceAreaLinks />
+            <ServiceAreaLinks serviceSlug={service.slug} serviceName={service.name} highlight={location?.slug} />
           </div>
         </div>
       </section>

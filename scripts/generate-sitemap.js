@@ -61,6 +61,13 @@ for (const slug of coreServiceSlugs) {
   xml += `  <url><loc>${baseUrl}/${slug}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>\n`;
 }
 
+// Core Service Location combinations (e.g. /electrical-repairs-and-upgrades-american-fork-ut)
+for (const cSlug of coreServiceSlugs) {
+  for (const lSlug of locationSlugs) {
+    xml += `  <url><loc>${baseUrl}/${cSlug}-${lSlug}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>\n`;
+  }
+}
+
 // Main Service pages
 for (const slug of serviceSlugs) {
   xml += `  <url><loc>${baseUrl}/services/${slug}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>\n`;
@@ -89,6 +96,7 @@ fs.writeFileSync(path.join(rootDir, 'public/sitemap.xml'), xml, 'utf8');
 const totalUrls =
   staticPages.length +
   coreServiceSlugs.length +
+  coreServiceSlugs.length * locationSlugs.length +
   serviceSlugs.length +
   locationSlugs.length +
   serviceSlugs.length * locationSlugs.length +

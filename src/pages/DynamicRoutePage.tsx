@@ -34,6 +34,18 @@ export default function DynamicRoutePage() {
     return <Navigate to={locationUrl(bareLocation.slug)} replace />;
   }
 
+  // Check if it's a core service location combination (e.g. "electrical-repairs-and-upgrades-american-fork-ut")
+  for (const core of CORE_SERVICES) {
+    const prefix = `${core.slug}-`;
+    if (slug.startsWith(prefix)) {
+      const remainingSlug = slug.slice(prefix.length);
+      const loc = getLocation(remainingSlug);
+      if (loc) {
+        return <CoreServicePage slug={core.slug} locationSlug={loc.slug} />;
+      }
+    }
+  }
+
   // Check if it's a service-location combination (e.g., "electrical-repair-american-fork-ut")
   for (const service of SERVICES) {
     const prefix = `${service.slug}-`;

@@ -1828,8 +1828,14 @@ export function getCoreService(slug: string): CoreServiceInfo | undefined {
 }
 
 export function getLocation(slug: string): LocationInfo | undefined {
-  const cleanSlug = slug.replace(/^(electrician|electrition)-/, '');
-  return LOCATIONS.find((l) => l.slug === cleanSlug || l.slug === slug);
+  const cleanSlug = slug.toLowerCase().replace(/^(electrician|electrition)-/, '');
+  return LOCATIONS.find(
+    (l) =>
+      l.slug === cleanSlug ||
+      l.slug === `${cleanSlug}-ut` ||
+      l.city.toLowerCase().replace(/\s+/g, '-') === cleanSlug ||
+      l.short.toLowerCase().replace(/\s+/g, '-') === cleanSlug
+  );
 }
 
 export function locationUrl(locationSlug: string): string {
@@ -1840,4 +1846,9 @@ export function locationUrl(locationSlug: string): string {
 export function serviceLocationUrl(serviceSlug: string, locationSlug: string): string {
   const cleanLocation = locationSlug.replace(/^(electrician|electrition)-/, '');
   return `/${serviceSlug}-${cleanLocation}`;
+}
+
+export function coreServiceLocationUrl(coreServiceSlug: string, locationSlug: string): string {
+  const cleanLocation = locationSlug.replace(/^(electrician|electrition)-/, '');
+  return `/${coreServiceSlug}-${cleanLocation}`;
 }
